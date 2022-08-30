@@ -1,0 +1,33 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+  background-color: lightgrey;
+}
+
+.FlexWrap {
+	font-family: 'Oswald', sans-serif;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  margin-top: 10vh;
+  display: grid;
+  justify-content: space-around;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+  grid-template-columns: auto auto auto auto;
+  grid-auto-rows: auto;
+  grid-gap: 2vw;
+}
+
+.FlexItem {
+	background-color: grey;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  color: lightgrey;
+}
+
+img {
+  width: 80%;
+  object-fit: cover;
+}
