@@ -31,7 +31,7 @@ window.addEventListener('click',  () => {
 function renderImage(src, tag, title) {
 
   const div = document.createElement('a');
-  div.href = './album.html';
+  div.href = './album.html?id=' + tag;
   div.className = `FlexItem`;
   div.dataset.albumId = tag;
 

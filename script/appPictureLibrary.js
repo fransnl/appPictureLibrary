@@ -7,7 +7,10 @@ import * as lib from '../model/picture-library-browser.js';
 const libraryJSON ="picture-library.json";
 let library;  //Global varibale, Loaded async from the current server in window.load event
 
-
+const url = window.location.href;
+const urlString = new URL(url);
+const albumId = urlString.searchParams.get('id');
+console.log(albumId);
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
@@ -15,10 +18,13 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
 for (const album of library.albums) {
-
-    for (const picture of album.pictures) {
+    if(album.id == albumId){
+      for (const picture of album.pictures) {
+        
         const comment = picture.comment.substring(0, 50) + '...';
         renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+        
+      }
     }
   }
 })
