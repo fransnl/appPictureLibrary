@@ -9,9 +9,10 @@ body {
 .FlexWrap {
 	font-family: 'Oswald', sans-serif;
   height: 100%;
-  width: 100%;
+  width: 90%;
   text-decoration: none;
   margin-top: 10vh;
+  margin: 5vw;
   display: grid;
   justify-content: space-around;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
   grid-template-columns: auto auto auto auto;
