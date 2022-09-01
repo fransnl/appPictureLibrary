@@ -9,8 +9,7 @@ let library;  //Global varibale, Loaded async from the current server in window.
 
 const url = window.location.href;
 const urlString = new URL(url);
-const albumId = urlString.searchParams.get('id');
-console.log(albumId);
+const pictureId = urlString.searchParams.get('id');
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
@@ -18,15 +17,16 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
 for (const album of library.albums) {
-    if(album.id == albumId){
+    
       for (const picture of album.pictures) {
-        
-        const comment = picture.comment.substring(0, 50) + '...';
-        renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
-        
+        if(picture.id == pictureId){
+
+            const comment = picture.comment;
+            renderImage(`${album.path}/${picture.imgHiRes}`, picture.id, picture.title, comment);
+        }
       }
     }
-  }
+  
 })
 
 window.addEventListener('click',  () => {
@@ -38,10 +38,9 @@ window.addEventListener('click',  () => {
 //Render the images
 function renderImage(src, tag, title, comment) {
 
-  const div = document.createElement('a');
+  const div = document.createElement('div');
   div.className = `FlexItem`;
   div.dataset.albumId = tag;
-  div.href = './picture.html?id=' + tag;
 
   const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
