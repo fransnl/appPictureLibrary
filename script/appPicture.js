@@ -5,7 +5,9 @@
 import * as lib from '../model/picture-library-browser.js';
 
 const libraryJSON ="picture-library.json";
+const ratingJSON = '../app-data/library/picture-rating.json';
 let library;  //Global varibale, Loaded async from the current server in window.load event
+let allRatings;
 
 const url = window.location.href;
 const urlString = new URL(url);
@@ -13,6 +15,7 @@ const pictureId = urlString.searchParams.get('id');
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
+allRatings = await (await fetch(ratingJSON)).json();
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
@@ -27,13 +30,25 @@ for (const album of library.albums) {
       }
     }
   
+    const ratings = document.querySelectorAll('#rating');
+    const submit = document.querySelector('.submit');
+    let selectedRating = null;
+
+    ratings.forEach(rating => {
+      rating.addEventListener('click', () => {
+        selectedRating = rating.innerHTML
+      })
+    });
+
+    submit.addEventListener('click', () => {
+      if(selectedRating == null){
+        console.log('no rating selected');
+      }
+      else{
+        submitRating(selectedRating);
+      }
+    });
 })
-
-window.addEventListener('click',  () => {
-
-  //just to confirm that the library is accessible as a global variable read async
-  console.log (`library has ${library.albums.length} albums`);
-});
 
 //Render the images
 function renderImage(src, tag, title, comment) {
@@ -56,7 +71,37 @@ function renderImage(src, tag, title, comment) {
 
   const imgFlex = document.querySelector('.FlexWrap');
   imgFlex.appendChild(div);
+
+  const rElement = document.querySelector('.ratings');
+
+  for(let i = 0; i < 5; i++){
+    const rating = document.createElement('div');
+    rating.id = 'rating';
+    rating.href = '#';
+    rating.tabIndex = i+1;
+    rating.innerHTML = i+1;
+    rElement.appendChild(rating);
+  }
+
+  const submit = document.createElement('button');
+  submit.className = 'submit';
+  submit.innerHTML = 'submit';
+  rElement.appendChild(submit);
+  
 };
+
+function submitRating(rating){
+
+  let r = allRatings.ratings;
+
+  r = [...r, { rating: rating, id: pictureId}];
+
+  allRatings.ratings = r;
+
+  
+}
+
+
 
 
 
