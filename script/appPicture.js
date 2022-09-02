@@ -9,6 +9,8 @@ const ratingJSON = '../app-data/library/picture-rating.json';
 let library;  //Global varibale, Loaded async from the current server in window.load event
 let allRatings;
 
+const submit = document.createElement('a');
+
 const url = window.location.href;
 const urlString = new URL(url);
 const pictureId = urlString.searchParams.get('id');
@@ -83,7 +85,6 @@ function renderImage(src, tag, title, comment) {
     rElement.appendChild(rating);
   }
 
-  const submit = document.createElement('button');
   submit.className = 'submit';
   submit.innerHTML = 'submit';
   rElement.appendChild(submit);
@@ -92,13 +93,7 @@ function renderImage(src, tag, title, comment) {
 
 function submitRating(rating){
 
-  let r = allRatings.ratings;
-
-  r = [...r, { rating: rating, id: pictureId}];
-
-  allRatings.ratings = r;
-
-  console.log(r);
+  submit.href=`/picture.html?id=${pictureId}&rating=${rating}`;
   
 }
 

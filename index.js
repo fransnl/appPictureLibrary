@@ -28,6 +28,12 @@ http.createServer((req, res) => {
         case '.jpg':
             contentType = 'image/jpg';
             break;
+        case '.ico':
+            contentType = 'image/ico';
+            break;
+        case '.json':
+            contentType = 'text/json';
+            break;
     }
     
     fs.readFile(filename, function(err, data) {
@@ -42,6 +48,8 @@ http.createServer((req, res) => {
 
       qdata = q.query;
 
-      if(qdata.name !=null) console.log(qdata.name);
+      if(qdata.rating !=null){
+        console.log(qdata.rating);
+      };
     
 }).listen(5500)
