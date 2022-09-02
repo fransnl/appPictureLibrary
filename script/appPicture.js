@@ -98,6 +98,7 @@ function submitRating(rating){
 
   allRatings.ratings = r;
 
+  console.log(r);
   
 }
 

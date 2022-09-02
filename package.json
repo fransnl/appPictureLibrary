@@ -1,0 +1,21 @@
+{
+  "name": "apppicturelibrary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fransnl/appPictureLibrary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fransnl/appPictureLibrary/issues"
+  },
+  "homepage": "https://github.com/fransnl/appPictureLibrary#readme"
+}
