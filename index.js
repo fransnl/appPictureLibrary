@@ -49,7 +49,18 @@ http.createServer((req, res) => {
       qdata = q.query;
 
       if(qdata.rating !=null){
-        console.log(qdata.rating);
+        fs.readFile('./app-data/library/picture-rating.json','utf-8', function(err, data){
+            
+            let ratings = JSON.parse(data);
+            let r = ratings.ratings;
+            r = [...r, {rating: qdata.rating, id: qdata.id}];
+            ratings.ratings = r;
+            
+            fs.writeFile('./app-data/library/picture-rating.json', JSON.stringify(ratings), function(err){
+                if(err) throw err;
+                console.log('rating saved');
+            });
+        });
       };
     
 }).listen(5500)

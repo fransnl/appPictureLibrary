@@ -88,6 +88,12 @@ function renderImage(src, tag, title, comment) {
   submit.className = 'submit';
   submit.innerHTML = 'submit';
   rElement.appendChild(submit);
+
+
+
+  for(rating of allRatings.ratings){
+    
+  }
   
 };
 
