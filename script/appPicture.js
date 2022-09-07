@@ -9,17 +9,19 @@ const ratingJSON = '../app-data/library/picture-rating.json';
 let library;  //Global varibale, Loaded async from the current server in window.load event
 let allRatings;
 
-const submit = document.createElement('a');
+const submit = document.createElement('button');
 
+//gets picture id from url
 const url = window.location.href;
 const urlString = new URL(url);
 const pictureId = urlString.searchParams.get('id');
+
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
-allRatings = await (await fetch(ratingJSON)).json();
-library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
-//library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+//reading ratings and library json local files
+allRatings =  (await fetch(ratingJSON)).json();
+library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);
 
 for (const album of library.albums) {
     
@@ -88,20 +90,24 @@ function renderImage(src, tag, title, comment) {
   submit.className = 'submit';
   submit.innerHTML = 'submit';
   rElement.appendChild(submit);
-
-
-
-  for(rating of allRatings.ratings){
-    
-  }
   
 };
 
 function submitRating(rating){
-
-  submit.href=`/picture.html?id=${pictureId}&rating=${rating}`;
+  //fetch POST request to node server
+  fetch('http://localhost:8080/addrating', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    mode: 'cors',
+    body: JSON.stringify({ rating, id: pictureId }),
+  });
+};
   
-}
+  
+
 
 
 
