@@ -45,4 +45,6 @@ function renderImage(src, tag, title) {
 
   const imgFlex = document.querySelector('.FlexWrap');
   imgFlex.appendChild(div);
+
+  
 };

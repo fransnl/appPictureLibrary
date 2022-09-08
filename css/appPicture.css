@@ -1,0 +1,77 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+  background-color: lightgrey;
+}
+
+.FlexWrap {
+	font-family: 'Oswald', sans-serif;
+  height: 100%;
+  width: 90%;
+  text-decoration: none;
+  margin-top: 10vh;
+  margin: 5vw;
+  margin-inline-start: 30px;
+  display: grid;
+  justify-content: space-around;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+  grid-template-columns: auto auto auto auto;
+  grid-auto-rows: auto;
+  grid-gap: 2vw;
+}
+
+.FlexItem {
+	background-color: grey;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  color: lightgrey;
+  
+}
+
+/*.FlexItem:hover{
+  transform: scale3d(1.2, 1.2, 1);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 10px 20px rgba(71, 71, 71, 0.4);
+
+}*/
+
+img {
+  width: 80%;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 700px){
+  .FlexWrap{
+    grid-template-columns: auto ;
+  }
+}
+
+@media only screen and (min-width: 700px){
+  .FlexWrap{ 
+    grid-template-columns: auto auto ;
+  }
+}
+
+@media only screen and (min-width: 1000px){
+  .FlexWrap{ 
+    grid-template-columns: auto auto auto auto;
+  }
+}
+
+button {
+  transition-duration: 0.4s;
+  background-color: lightgrey;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  text-shadow: 50px;
+  font-style: normal;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+button:hover{
+   background-color: grey;
+}
