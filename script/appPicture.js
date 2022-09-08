@@ -81,6 +81,7 @@ function renderImage(src, tag, title, comment) {
   
   const pRating = document.createElement('p');
   pRating.innerHTML = 'no ratings yet!';
+  pRating.className = 'totRating';
   
   let totRating = [];
   let ratingExist = false;
@@ -105,7 +106,7 @@ function renderImage(src, tag, title, comment) {
   }
   
   rElement.append(pRating);
-  
+
   for(let i = 0; i < 5; i++){
     const rating = document.createElement('div');
     rating.id = 'rating';
