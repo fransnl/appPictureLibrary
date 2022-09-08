@@ -20,7 +20,7 @@ const pictureId = urlString.searchParams.get('id');
 window.addEventListener('DOMContentLoaded', async () => {
 
 //reading ratings and library json local files
-allRatings =  (await fetch(ratingJSON)).json();
+allRatings =  await fetch(ratingJSON).then((response => response.json()));
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);
 
 for (const album of library.albums) {
@@ -78,6 +78,34 @@ function renderImage(src, tag, title, comment) {
 
   const rElement = document.querySelector('.ratings');
 
+  
+  const pRating = document.createElement('p');
+  pRating.innerHTML = 'no ratings yet!';
+  
+  let totRating = [];
+  let ratingExist = false;
+  
+  for(const rating of allRatings.ratings){
+    if(rating.id == pictureId){
+      ratingExist = true;
+      totRating = [...totRating, parseInt(rating.rating)];
+    }
+  }
+  
+  if((totRating != undefined || totRating.length != 0) & ratingExist){
+    let nrofratings = 0;
+    let r = 0;
+    for(const rating of totRating){
+      nrofratings += 1;
+      r += rating;
+    }
+    r = r/nrofratings;
+    pRating.innerHTML= `Rating: ${r}`;
+    
+  }
+  
+  rElement.append(pRating);
+  
   for(let i = 0; i < 5; i++){
     const rating = document.createElement('div');
     rating.id = 'rating';
@@ -87,6 +115,7 @@ function renderImage(src, tag, title, comment) {
     rElement.appendChild(rating);
   }
 
+  
   submit.className = 'submit';
   submit.innerHTML = 'submit';
   rElement.appendChild(submit);
