@@ -81,6 +81,7 @@ function renderImage(src, tag, title, comment) {
     editComment.hidden = true;
     saveComment.hidden = false;
     pComment.contentEditable = true;
+    pTitle.contentEditable = true;
     pComment.style.backgroundColor = "aliceblue";
     pComment.style.color = "black";
   });
@@ -93,6 +94,7 @@ function renderImage(src, tag, title, comment) {
     saveComment.hidden = true; /* hide save button when save button is clicked */
     editComment.hidden = false; /* display edit button when save button is clicked*/
     pComment.contentEditable = false;
+    pTitle.contentEditable = false;
     pComment.style.backgroundColor = "grey";
     pComment.style.color = "lightgrey";
   });
