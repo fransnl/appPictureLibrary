@@ -4,6 +4,19 @@ body {
 	padding: 0;
   box-sizing: border-box;
   background-color: #827AC5;
+  height: 100%;
+}
+
+.wrapper{
+  height: 100%;
+  animation: scroll 120s linear infinite;
+  background: url(/app-data/library/pictures/backpic.png) no-repeat;
+}
+
+@keyframes scroll{
+  100%{
+    background-position:0px -600px;
+  }
 }
 
 .header{
@@ -29,7 +42,7 @@ body {
 
 .logo{
   width: 8vw;
-  animation: rotate 5s linear infinite;
+  animation: rotate 40s linear infinite;
 }
 
 @keyframes rotate {
@@ -49,7 +62,7 @@ body {
 
 .FlexWrap {
 	font-family: 'Oswald', sans-serif;
-  height: 100%;
+  height: auto;
   width: 90%;
   text-decoration: none;
   margin-top: 10vh;
@@ -62,11 +75,14 @@ body {
 }
 
 .FlexItem {
-	background-color: #68629D;
+  backdrop-filter:blur(5px);
+  background-color: #504b787d;
   border-radius: 5px;
   text-decoration: none;
   text-align: center;
   color: white;
+  position: relative;
+
   
 }
 
@@ -126,7 +142,10 @@ img {
   font-weight: bolder;
 }
 /* RATING*/
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px){  
+  body{
+    height: auto;
+  }
   .FlexWrap{ 
     grid-template-columns: auto ;
   }
@@ -184,14 +203,21 @@ img {
 }
 
 @media only screen and (min-width: 700px){
-  .FlexWrap{ 
+  body{
+    height: auto;
+  }
+  .FlexWrap{
     grid-template-columns: auto auto ;
   }
 }
 
 @media only screen and (min-width: 1000px){
+  body{
+    height: 100%;
+  }
   .FlexWrap{ 
-    grid-template-columns: auto auto auto auto;
+    
+    grid-template-columns: auto auto auto auto auto;
   }
 
   .header{
