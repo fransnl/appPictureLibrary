@@ -39,11 +39,16 @@ function renderImage(src, tag, title) {
 
   const pTitle = document.createElement("p");
   pTitle.innerHTML = `${title}`;
+  pTitle.className = 'pText'
   div.appendChild(pTitle);
 
-  const img = document.createElement("img");
+  const pictureDiv = document.createElement('div');
+  pictureDiv.className = 'picContainer';
+  div.appendChild(pictureDiv);
+
+  const img = document.createElement('img');
   img.src = src;
-  div.appendChild(img);
+  pictureDiv.appendChild(img);
 
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
