@@ -45,6 +45,7 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
+  pTitle.className = 'pText'
   div.appendChild(pTitle);
 
   const img = document.createElement('img');
@@ -53,6 +54,7 @@ function renderImage(src, tag, title, comment) {
   
   const pComment = document.createElement('p');
   pComment.innerHTML = `${comment}`;
+  pComment.className = 'pText'
   div.appendChild(pComment); 
 
   const imgFlex = document.querySelector('.FlexWrap');
