@@ -16,18 +16,22 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  if(albumId !== null){
 
-for (const album of library.albums) {
-    if(album.id == albumId){
-      for (const picture of album.pictures) {
-        
-        const comment = picture.comment.substring(0, 50) + '...';
-        renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
-        
+    for (const album of library.albums) {
+        if(album.id == albumId){
+          for (const picture of album.pictures) {
+            
+            const comment = picture.comment.substring(0, 50) + '...';
+            renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+            
+          }
+        }
       }
-    }
-  }
-})
+  } else [
+    renderError()
+  ]
+});
 
 window.addEventListener('click',  () => {
 
@@ -38,26 +42,35 @@ window.addEventListener('click',  () => {
 //Render the images
 function renderImage(src, tag, title, comment) {
 
-  const div = document.createElement('a');
-  div.className = `FlexItem`;
-  div.dataset.albumId = tag;
-  div.href = './picture.html?id=' + tag;
-
-  const pTitle = document.createElement('p');
-  pTitle.innerHTML = `${title}`;
-  div.appendChild(pTitle);
-
-  const img = document.createElement('img');
-  img.src = src;
-  div.appendChild(img);
+    const div = document.createElement('a');
+    div.className = `FlexItem`;
+    div.dataset.albumId = tag;
+    div.href = './picture.html?id=' + tag;
   
-  const pComment = document.createElement('p');
-  pComment.innerHTML = `${comment}`;
-  div.appendChild(pComment); 
-
-  const imgFlex = document.querySelector('.FlexWrap');
-  imgFlex.appendChild(div);
+    const pTitle = document.createElement('p');
+    pTitle.innerHTML = `${title}`;
+    div.appendChild(pTitle);
+  
+    const img = document.createElement('img');
+    img.src = src;
+    div.appendChild(img);
+    
+    const pComment = document.createElement('p');
+    pComment.innerHTML = `${comment}`;
+    div.appendChild(pComment); 
+  
+    const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(div);
+  
 };
+
+function renderError(){
+  const error = document.createElement('a');
+  error.innerHTML = '<- no album found, go back to home page'
+  error.href = '/';
+  const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(error);
+}
 
 
 
