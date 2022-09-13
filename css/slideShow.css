@@ -1,0 +1,60 @@
+*{
+margin: 0%;
+padding: 0%;
+}
+body{
+    background-color: aqua;
+    height: 100vh;
+}
+
+.img_Container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    width: 50vw;
+    height: auto;
+}
+
+.prev, .next {
+    margin-top: 20%;
+    position: absolute ;
+    cursor: pointer;
+    width: auto;
+    padding: 20px;
+    font-size: 20px;
+    color:white;
+    font-weight: bold;
+}
+
+.prev{
+    left: 25%;
+}
+
+.next{
+    right: 25%;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(182, 219, 123, 0.8);
+}
+
+#btn{
+    background-color: yellow;
+    width: 10%;
+    height: 7%;
+    font-size: 16px;
+    border: none;
+    position: absolute;
+    left: 5%;
+    padding: 5px;
+    margin-top: 10%;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#btn:hover{
+    color: aqua;
+}
