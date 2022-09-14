@@ -81,8 +81,6 @@ body {
   background: linear-gradient(347deg, #b6b116, #fff956);
   box-shadow: -19px -19px 41px #d8c33f,
     19px 19px 71px #fcffac;
-  
-  
 }
 
 .FlexItem:hover > .pText{

@@ -1,0 +1,131 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #5569c6;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width: 50vw;
+    margin-left: 25vw;
+}
+
+.headerText {
+    color: #504B78;
+    font-size: 8vw;
+    font-family: impact;
+}
+
+#h1 {
+    text-align: right;
+}
+
+#h2 {
+    text-align: left;
+}
+
+.logo {
+    width: 8vw;
+    animation: rotate 40s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.FlexWrap {
+    font-family: 'Oswald', sans-serif;
+    height: 100%;
+    width: 90%;
+    text-decoration: none;
+    margin-top: 10vh;
+    margin: 5vw;
+    display: grid;
+    justify-content: space-around;
+    /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+    grid-gap: 2vw;
+}
+
+.FlexItem {
+    background-color: #68629D;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    margin-inline: auto;
+    border-radius: 5px;
+    background: linear-gradient(315deg, #847db7, #6f699a);
+    box-shadow: -19px -19px 41px #494565,
+        29px 29px 41px #ada5f1;
+
+}
+
+
+.logobg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    background-color: #504B78;
+    width: 14vw;
+    height: 14vw;
+    border-radius: 50%;
+}
+
+/*Rating*/
+.ratings {
+    background-color: #847db7;
+    display: flex;
+}
+
+#rating {
+    background-color: #68629D;
+    margin: 1vw;
+    border-radius: 50%;
+    width: 5vw;
+    height: 5vw;
+    text-align: center;
+    color: white;
+    font-size: 2vw;
+}
+
+#rating:hover {
+    transform: translate3d(-0.3vw, -0.3vw, 0);
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0.4vw 0.1vw #504B78;
+}
+
+#rating:focus {
+    background-color: #EA8B2E;
+    color: #504B78;
+    transform: translate3d(-0.3vw, -0.3vw, 0);
+    box-shadow: 0.4vw 0.1vw #504B78;
+}
+
+.submit {
+    display: flex;
+    border: none;
+    width: 20vw;
+    height: 5vh;
+    font-size: 2vw;
+    border-radius: 5px;
+    color: white;
+    background-color: #68629D;
+}
+
+.submit:hover {
+    background-color: #504B78;
+}
+
+.totRating {
+    color: white;
+    font-size: 2.5vw;
+    font-weight: bolder;
+}
+
+/*Rating*/
