@@ -1,35 +1,65 @@
+'use strict';
+import * as lib from "../model/picture-library-browser.js";
+const libraryJSON = "picture-library.json";
+let library;
+
+const url = window.location.href;
+const urlString = new URL(url);
+const pictureIds = urlString.searchParams.getAll("id");
+
+console.log(pictureIds)
+
 var images = [];
 
-images[0] = 'app-data/library/pictures/planets/GSFC_20171208_Archive_e000332~orig.jpg';
-images[1] = 'app-data/library/pictures/planets/hubble-captures-vivid-auroras-in-jupiters-atmosphere_28000029525_o~orig.jpg';
-images[2] = 'app-data/library/pictures/planets/PIA05982~orig.jpg';
-
 var i = 0;
-var time = 1000;
 
-function prevImg(){
-    if(i <= 0 ) //Prevents error and takes you back to the end of the array if you try to go beyond [0]
-        i = images.length; 
-    //Goes one step back in the array then changes the src attribute.
-    document.getElementById('img-box').src = images[--i];
-} 
+window.addEventListener('DOMContentLoaded', async () => {
+    library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);
+    for (const album of library.albums) {
+        for (const picture of album.pictures) {
+            pictureIds.forEach(item => {
+                if(picture.id == item){
+                    images.push(`${album.path}/${picture.imgHiRes}`);
+                }
+            });
+        }
+    }
+    render();
+});
 
-function nextImg(){
-  
-    if(i >= images.length - 1) 
+function render(){
+    const imgContainer = document.createElement('div');
+    imgContainer.className = "img_Container";
+
+    const imgBox = document.createElement('img');
+    imgBox.className = 'img-box';
+    imgBox.src = images[0];
+    imgContainer.appendChild(imgBox);
+
+    const next = document.createElement('a');
+    next.className = "next";
+    next.addEventListener('click',() => {
+        if(i >= images.length - 1) 
         i = -1;
 
-    document.getElementById('img-box').src = images[++i];
-}
+        imgBox.src = images[++i];
+    });
+    next.innerHTML = '&#10095';
+    imgContainer.appendChild(next);
 
-function changeImgAuto()
-{
-   if(i > images.length - 1)
-        i = 0;
+    const prev = document.createElement('a');
+    prev.className = "prev";
+    prev.addEventListener('click',() => {
+        if(i <= 0 ) //Prevents error and takes you back to the end of the array if you try to go beyond [0]
+        i = images.length; 
+    //Goes one step back in the array then changes the src attribute.
+        imgBox.src = images[--i];
+    });
+    prev.innerHTML = '&#10094';
+    imgContainer.appendChild(prev);
 
-   document.getElementById('img-box').src = images[i++];
-
-   setTimeout("changeImgAuto()", time)
+    const slideshow = document.querySelector('.slideshow');
+    slideshow.appendChild(imgContainer);
 }
 
 

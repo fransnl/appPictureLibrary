@@ -18,25 +18,56 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
   if(albumId !== null){
 
+    const slideShow = document.createElement('a');
+    slideShow.innerHTML = 'go to slideshow';
+    slideShow.href = '#';
+    
+    const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(slideShow);
+
     for (const album of library.albums) {
-        if(album.id == albumId){
-          for (const picture of album.pictures) {
+      if(album.id == albumId){
+        for (const picture of album.pictures) {
             
-            const comment = picture.comment.substring(0, 50) + '...';
-            renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+          const comment = picture.comment.substring(0, 50) + '...';
+          renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
             
-          }
         }
       }
+    }
+    
+    const allPictures = document.querySelectorAll('.FlexItem');
+    console.log(allPictures);
+    
+    slideShow.addEventListener("click", () => {
+      const allChecked = []
+      allPictures.forEach(item => {
+        if(item.querySelector('input').checked === true){
+          const purl = item.href
+          const purlString = new URL(purl);
+          const pid = purlString.searchParams.get('id');
+          allChecked.push(pid);
+        }
+      });
+      if(allChecked !== []){
+        let surl = '/slideShow.html?'
+        for(let i = 0; i < allChecked.length; i++){
+          if(i === 0){
+            surl += `id=${allChecked[i]}`;
+          } else {
+            surl += `&id=${allChecked[i]}`;
+          }
+
+        }
+
+        slideShow.href = surl;
+      }
+    })
+
+
   } else [
     renderError()
   ]
-});
-
-window.addEventListener('click',  () => {
-
-  //just to confirm that the library is accessible as a global variable read async
-  console.log (`library has ${library.albums.length} albums`);
 });
 
 //Render the images
@@ -46,6 +77,10 @@ function renderImage(src, tag, title, comment) {
     div.className = `FlexItem`;
     div.dataset.albumId = tag;
     div.href = './picture.html?id=' + tag;
+
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    div.appendChild(checkBox);
   
     const pTitle = document.createElement('p');
     pTitle.innerHTML = `${title}`;
@@ -57,7 +92,7 @@ function renderImage(src, tag, title, comment) {
     
     const pComment = document.createElement('p');
     pComment.innerHTML = `${comment}`;
-    div.appendChild(pComment); 
+    div.appendChild(pComment);
   
     const imgFlex = document.querySelector('.FlexWrap');
     imgFlex.appendChild(div);
