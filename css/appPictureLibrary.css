@@ -3,19 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-<<<<<<< Updated upstream
-  background-color: #827AC5;
-  height: auto;
-  animation: scroll 120s linear infinite;
-  background: url(/app-data/library/pictures/backpic.png) no-repeat;
-}
-@keyframes scroll{
-  100%{
-    background-position:0px -600px;
-  }
-=======
   background-color: #7b75ab;
->>>>>>> Stashed changes
 }
 
 .header {
@@ -62,13 +50,8 @@ body {
 }
 
 .FlexWrap {
-<<<<<<< Updated upstream
-	font-family: 'Oswald', sans-serif;
-  height: auto;
-=======
   font-family: 'Oswald', sans-serif;
   height: 100%;
->>>>>>> Stashed changes
   width: 90%;
   text-decoration: none;
   margin-top: 10vh;
@@ -80,28 +63,17 @@ body {
 }
 
 .FlexItem {
-<<<<<<< Updated upstream
-  backdrop-filter:blur(3px);
-  background-color: #433c9e7d;
-=======
   background-color: #68629D;
->>>>>>> Stashed changes
   border-radius: 5px;
   text-decoration: none;
   text-align: center;
   color: white;
-<<<<<<< Updated upstream
-  position: relative;
-
-  
-=======
   margin-inline: auto;
   border-radius: 5px;
   background: linear-gradient(315deg, #847db7, #6f699a);
   box-shadow: -19px -19px 41px #494565,
     29px 29px 41px #ada5f1;
 
->>>>>>> Stashed changes
 }
 
 .FlexItem:hover {
@@ -170,18 +142,9 @@ img {
 }
 
 /* RATING*/
-<<<<<<< Updated upstream
-@media only screen and (max-width: 700px){  
-  body{
-    height: auto;
-  }
-  .FlexWrap{ 
-    grid-template-columns: auto ;
-=======
 @media only screen and (max-width: 700px) {
   .FlexWrap {
     grid-template-columns: auto;
->>>>>>> Stashed changes
   }
 
   .FlexItem:hover {
@@ -239,24 +202,6 @@ img {
   }
 }
 
-<<<<<<< Updated upstream
-@media only screen and (min-width: 700px){
-  body{
-    height: 100%;
-  }
-  .FlexWrap{
-    grid-template-columns: auto auto ;
-  }
-}
-
-@media only screen and (min-width: 1000px){
-  body{
-    height: 100%;
-  }
-  .FlexWrap{ 
-    
-    grid-template-columns: auto auto auto auto auto;
-=======
 @media only screen and (min-width: 700px) {
   .FlexWrap {
     grid-template-columns: auto auto;
@@ -266,7 +211,6 @@ img {
 @media only screen and (min-width: 1000px) {
   .FlexWrap {
     grid-template-columns: auto auto auto auto;
->>>>>>> Stashed changes
   }
 
   .header {
