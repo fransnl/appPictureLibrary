@@ -63,15 +63,17 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement("p");
   pTitle.innerHTML = `${title}`;
+  pTitle.className = `Title`;
   div.appendChild(pTitle);
+
+  const pComment = document.createElement("p");
+  pComment.innerHTML = `${comment}`;
+  pComment.className = `Comment`;
+  div.appendChild(pComment);
 
   const img = document.createElement("img");
   img.src = src;
   div.appendChild(img);
-
-  const pComment = document.createElement("p");
-  pComment.innerHTML = `${comment}`;
-  div.appendChild(pComment);
 
   const editComment = document.createElement("button");
   editComment.textContent = `Edit`;
@@ -97,6 +99,9 @@ function renderImage(src, tag, title, comment) {
     pTitle.contentEditable = false;
     pComment.style.backgroundColor = "grey";
     pComment.style.color = "lightgrey";
+    const comment = document.querySelector(".Comment");
+    const title = document.querySelector(".Title");
+    submitChange(title.innerHTML, comment.innerHTML);
   });
 
   const imgFlex = document.querySelector(".FlexWrap");
@@ -155,5 +160,18 @@ function submitRating(rating) {
     },
     mode: "cors",
     body: JSON.stringify({ rating, id: pictureId }),
+  });
+}
+
+function submitChange(title, comment) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/changeTitleComment", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title, comment, id: pictureId }),
   });
 }
