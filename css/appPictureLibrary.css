@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #7b75ab;
+  background-color: #e1e3dd;
 }
 
 .header {
@@ -18,6 +18,16 @@ body {
   font-size: 8vw;
   font-family: impact;
 }
+
+.pText {
+  width: 50%;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+}
+
+.Title {}
+
+.Comment {}
 
 #h1 {
   text-align: right;
@@ -63,31 +73,30 @@ body {
 }
 
 .FlexItem {
+  display: grid;
+  justify-items: center;
+  align-items: baseline;
+  align-content: space-between;
   background-color: #68629D;
-  border-radius: 5px;
   text-decoration: none;
   text-align: center;
-  color: white;
+  color: black;
   margin-inline: auto;
   border-radius: 5px;
-  background: linear-gradient(315deg, #847db7, #6f699a);
-  box-shadow: -19px -19px 41px #494565,
-    29px 29px 41px #ada5f1;
+  background: linear-gradient(315deg, #cbccc7, #f1f3ec);
+  box-shadow: -25px -25px 49px #979894,
+    25px 25px 49px #ffffff;
 
 }
 
 .FlexItem:hover {
-  transition: all .1s ease-in;
-  background: linear-gradient(315deg,#433c71, #c9cba6 );
-  box-shadow: -29px -29px 41px #38354e,
-    39px 39px 41px #d4cfff;
+  transition: all 8s linear;
+  background: linear-gradient(315deg, #9aa7b5, #b7c6d7);
+box-shadow:  -25px -25px 49px #737c87,
+             25px 25px 49px #e3f6ff;
 }
 
-.FlexItem:hover > .pText{
-  transition: all .1s ease-in;
-  color: #ffea00;
-  
-}
+.FlexItem:hover>.pText {}
 
 img {
   width: 80%;
