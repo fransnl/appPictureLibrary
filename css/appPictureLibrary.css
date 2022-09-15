@@ -78,14 +78,15 @@ body {
 
 .FlexItem:hover {
   transition: all .1s ease-in;
-  background: linear-gradient(347deg, #b6b116, #fff956);
-  box-shadow: -19px -19px 41px #d8c33f,
-    19px 19px 71px #fcffac;
+  background: linear-gradient(315deg,#433c71, #c9cba6 );
+  box-shadow: -29px -29px 41px #38354e,
+    39px 39px 41px #d4cfff;
 }
 
 .FlexItem:hover > .pText{
   transition: all .1s ease-in;
-  color: #494565;
+  color: #ffea00;
+  
 }
 
 img {
