@@ -30,9 +30,9 @@ window.addEventListener('click',  () => {
 //Render the images
 function renderImage(src, tag, title) {
 
-  const div = document.createElement('a');
+  const div = document.createElement('div');
   div.href = './album.html?id=' + tag;
-  div.className = `FlexItem2`;
+  // div.className = `FlexItem`;
   div.dataset.albumId = tag;
 
   const pTitle = document.createElement('p');
@@ -40,14 +40,14 @@ function renderImage(src, tag, title) {
   pTitle.className = 'pText Titel'
   div.appendChild(pTitle);
 
-  const pictureDiv = document.createElement('div');
-  pictureDiv.className = 'picContainer';
-  div.appendChild(pictureDiv);
+  // const pictureDiv = document.createElement('div');
+  // pictureDiv.className = 'picContainer';
+  // div.appendChild(pictureDiv);
 
   const img = document.createElement('img');
   img.src = src;
-  pictureDiv.appendChild(img);
+  div.appendChild(img);
 
-  const imgFlex = document.querySelector('.FlexWrap');
+  const imgFlex = document.querySelector('.container');
   imgFlex.appendChild(div);
 };

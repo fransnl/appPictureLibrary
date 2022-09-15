@@ -1,0 +1,62 @@
+/* body {
+  background: rgba(240, 235, 215, 0.5);
+} */
+
+.container {
+  text-align: center;
+}
+
+.container div {
+  position: relative;
+  display: inline-block;
+  height: 300px;
+  width: 200px;
+  overflow: hidden;
+  border-radius: 7px;
+  margin: 200px 15px;
+  transition: 0.7s all cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  box-shadow: 0 50px 150px -20px rgba(0, 0, 0, 0.75);
+}
+
+.container div img {
+  width: 150%;
+  margin: 0% -25%;
+  min-height: 100%;
+  transition: 0.7s all cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.container div .pText {
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  font-family: Arial;
+  color: rgba(255, 255, 255, 0);
+  font-size: 1.5rem;
+
+  transition: 0.3s all cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.container div:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  border-radius: 10px;
+  box-shadow: 0 20px 300px -20px rgb(0, 0, 0);
+}
+
+.container div:hover:before {
+  content: "";
+  left: 350px;
+}
+
+.container div:hover img {
+  width: 150%;
+  margin: 0% -5%;
+  min-height: 100%;
+}
+
+.container div:hover .pText {
+  color: rgba(0, 0, 0, 0.8);
+  bottom: 20px;
+  backdrop-filter: blur;
+  
+}

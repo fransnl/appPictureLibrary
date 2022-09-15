@@ -63,7 +63,7 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement("p");
   pTitle.innerHTML = `${title}`;
-  pTitle.className = 'title'
+  pTitle.className = 'pText Title'
   div.appendChild(pTitle);
 
   const img = document.createElement("img");
@@ -72,6 +72,7 @@ function renderImage(src, tag, title, comment) {
 
   const pComment = document.createElement("p");
   pComment.innerHTML = `${comment}`;
+  pComment.className = 'pText Comment'
   div.appendChild(pComment);
 
   const editComment = document.createElement("button");
