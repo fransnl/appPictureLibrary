@@ -81,7 +81,7 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement("p");
   pTitle.innerHTML = `${title}`;
-  pTitle.className = 'pText'
+  pTitle.className = 'pText Title'
   div.appendChild(pTitle);
 
   const img = document.createElement("img");
@@ -90,7 +90,7 @@ function renderImage(src, tag, title, comment) {
 
   const pComment = document.createElement("p");
   pComment.innerHTML = `${comment}`;
-  pComment.className = 'pText'
+  pComment.className = 'pText Comment'
   div.appendChild(pComment); 
 
   const imgFlex = document.querySelector(".FlexWrap");
