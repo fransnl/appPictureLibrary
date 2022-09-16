@@ -30,10 +30,11 @@ window.addEventListener("click", () => {
   console.log(`library has ${library.albums.length} albums`);
 });
 
-// Render the images
+//Render the images
 function renderImage(src, tag, title) {
-  const div = document.createElement("a");
-  div.href = "./album.html?id=" + tag;
+
+  const div = document.createElement('a');
+  div.href = './album.html?id=' + tag;
   div.className = `FlexItem`;
   div.dataset.albumId = tag;
 
