@@ -1,6 +1,51 @@
-/* body {
+body {
   background: rgba(240, 235, 215, 0.5);
-} */
+}
+/*Header LOGO*/
+.header {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 50vw;
+  margin-left: 25vw;
+}
+
+.headerText {
+  color: #504B78;
+  font-size: 8vw;
+  font-family: impact;
+}
+
+#h1 {
+  text-align: right;
+}
+
+#h2 {
+  text-align: left;
+}
+
+
+.logo {
+  width: 8vw;
+  animation: rotate 40s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logobg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vh;
+  background-color: #504B78;
+  width: 14vw;
+  height: 14vw;
+  border-radius: 50%;
+}
+/*Header LOGO*/
 
 .container {
   text-align: center;
@@ -55,7 +100,7 @@
 }
 
 .container div:hover .pText {
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 79, 79, 0.8);
   bottom: 20px;
   backdrop-filter: blur;
   

@@ -12,13 +12,6 @@ class pictureLibraryBrowser extends lib.pictureLibrary {
     constructor() {
         super();
     }
-
-    /**
-     * It fetches a JSON file from the server, and if the response is successful, it returns the JSON
-     * data.
-     * @param file - the name of the file to fetch
-     * @returns The library object is being returned.
-     */
     static async fetchJSON(file) {
         try {
             const url = `../${libraryDir}/${file}`;
