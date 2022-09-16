@@ -82,6 +82,7 @@ function renderImage(src, tag, title, comment) {
   editComment.addEventListener("click", function () {
     editComment.hidden = true;
     saveComment.hidden = false;
+    deleteComment.hidden = false;
     pComment.contentEditable = true;
     pTitle.contentEditable = true;
     pComment.style.backgroundColor = "aliceblue";
@@ -102,6 +103,15 @@ function renderImage(src, tag, title, comment) {
     const comment = document.querySelector(".Comment");
     const title = document.querySelector(".Title");
     submitChange(title.innerHTML, comment.innerHTML);
+  });
+
+  const deleteComment = document.createElement("button");
+  deleteComment.hidden = true;
+  deleteComment.textContent = `Delete`;
+  div.appendChild(deleteComment);
+
+  deleteComment.addEventListener("click", function () {
+    submitRemove(pictureId);
   });
 
   const imgFlex = document.querySelector(".FlexWrap");
@@ -173,5 +183,18 @@ function submitChange(title, comment) {
     },
     mode: "cors",
     body: JSON.stringify({ title, comment, id: pictureId }),
+  });
+}
+
+function submitRemove(id) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/changeTitleComment", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ id: pictureId }),
   });
 }

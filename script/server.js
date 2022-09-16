@@ -47,16 +47,21 @@ app.post("/changeTitleComment", async (req, res) => {
   console.log(req.body.title);
 });
 
-// for (const album of library.albums) {
-//     for (const picture of album.pictures) {
-//       if (picture.id == pictureId) {
-//         const comment = picture.comment;
-//         renderImage(
-//           `${album.path}/${picture.imgHiRes}`,
-//           picture.id,
-//           picture.title,
-//           comment
-//         );
-//       }
-//     }
-//   }
+app.post("/removePicture", async (req, res) => {
+  const library = await pls
+    .readFile("../app-data/library/picture-test.json")
+    .then(JSON.parse);
+
+  for (const album of library.albums) {
+    for (const picture of album.pictures) {
+      if (req.body.id == picture.id) {
+        const idx = library.albums.findIndex((picture) => picture.id);
+        library.albums.splice(idx, 1);
+        await pls.writeFile(
+          "../app-data/library/picture-test.json",
+          JSON.stringify(library)
+        );
+      }
+    }
+  }
+});
