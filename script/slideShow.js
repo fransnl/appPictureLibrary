@@ -45,7 +45,6 @@ function render(){
         imgBox.src = images[++i];
     });
     next.innerHTML = '&#10095';
-    imgContainer.appendChild(next);
 
     const prev = document.createElement('a');
     prev.className = "prev";
@@ -56,10 +55,11 @@ function render(){
         imgBox.src = images[--i];
     });
     prev.innerHTML = '&#10094';
-    imgContainer.appendChild(prev);
 
     const slideshow = document.querySelector('.slideshow');
     slideshow.appendChild(imgContainer);
+    slideshow.appendChild(next);
+    slideshow.appendChild(prev);
 }
 
 
