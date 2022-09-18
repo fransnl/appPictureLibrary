@@ -43,11 +43,7 @@ function renderImage(src, tag, title) {
   pTitle.innerHTML = `${title}`;
   pTitle.className = 'pText Titel'
   div.appendChild(pTitle);
-
-  // const pictureDiv = document.createElement('div');
-  // pictureDiv.className = 'picContainer';
-  // div.appendChild(pictureDiv);
-
+  
   const img = document.createElement('img');
   img.src = src;
   div.appendChild(img);

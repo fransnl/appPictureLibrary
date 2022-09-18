@@ -32,9 +32,9 @@ body {
 
 .Comment {
   border-radius: 5px;
-  /* background: linear-gradient(315deg, #cbccc7, #f1f3ec);
+  background: linear-gradient(315deg, #cbccc7, #f1f3ec);
   box-shadow: -25px -25px 49px #979894,
-    25px 25px 49px #ffffff; */
+    25px 25px 49px #ffffff;
 }
 
 #h1 {
