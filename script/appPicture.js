@@ -101,7 +101,6 @@ function renderImage(src, tag, title, comment) {
     pComment.style.color = "lightgrey";
   });
 
->>>>>>> main
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
 
