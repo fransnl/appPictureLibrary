@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 //Render the images
-function renderImage(src, tag, title, comment) {
+function renderImage(srchigh, srclow, tag, title, comment) {
   const div = document.createElement("div");
   div.className = `FlexItem`;
   div.dataset.albumId = tag;
@@ -74,7 +74,8 @@ function renderImage(src, tag, title, comment) {
   div.appendChild(pComment);
 
   const img = document.createElement("img");
-  img.src = src;
+  img.src = srchigh;
+img.srcset = `${srchigh} 3000w, ${srclow} 700w`
   div.appendChild(img);
 
   const editComment = document.createElement("button");
