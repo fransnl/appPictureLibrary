@@ -16,48 +16,96 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  if(albumId !== null){
 
-for (const album of library.albums) {
-    if(album.id == albumId){
-      for (const picture of album.pictures) {
-        
-        const comment = picture.comment.substring(0, 50) + '...';
-        renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
-        
+    const slideShow = document.createElement('a');
+    slideShow.innerHTML = 'go to slideshow';
+    slideShow.href = '#';
+    
+    const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(slideShow);
+
+    for (const album of library.albums) {
+      if(album.id == albumId){
+        for (const picture of album.pictures) {
+            
+          const comment = picture.comment.substring(0, 50) + '...';
+          renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+            
+        }
       }
     }
-  }
-})
+    
+    const allPictures = document.querySelectorAll('.FlexItem');
+    console.log(allPictures);
+    
+    slideShow.addEventListener("click", () => {
+      const allChecked = []
+      allPictures.forEach(item => {
+        if(item.querySelector('input').checked === true){
+          const purl = item.href
+          const purlString = new URL(purl);
+          const pid = purlString.searchParams.get('id');
+          allChecked.push(pid);
+        }
+      });
+      if(allChecked !== []){
+        let surl = '/slideShow.html?'
+        for(let i = 0; i < allChecked.length; i++){
+          if(i === 0){
+            surl += `id=${allChecked[i]}`;
+          } else {
+            surl += `&id=${allChecked[i]}`;
+          }
 
-window.addEventListener('click',  () => {
+        }
 
-  //just to confirm that the library is accessible as a global variable read async
-  console.log (`library has ${library.albums.length} albums`);
+        slideShow.href = surl;
+      }
+    })
+
+
+  } else [
+    renderError()
+  ]
 });
 
 //Render the images
 function renderImage(src, tag, title, comment) {
 
-  const div = document.createElement('a');
-  div.className = `FlexItem`;
-  div.dataset.albumId = tag;
-  div.href = './picture.html?id=' + tag;
+    const div = document.createElement('a');
+    div.className = `FlexItem`;
+    div.dataset.albumId = tag;
+    div.href = './picture.html?id=' + tag;
 
-  const pTitle = document.createElement('p');
-  pTitle.innerHTML = `${title}`;
-  div.appendChild(pTitle);
-
-  const img = document.createElement('img');
-  img.src = src;
-  div.appendChild(img);
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    div.appendChild(checkBox);
   
-  const pComment = document.createElement('p');
-  pComment.innerHTML = `${comment}`;
-  div.appendChild(pComment); 
-
-  const imgFlex = document.querySelector('.FlexWrap');
-  imgFlex.appendChild(div);
+    const pTitle = document.createElement('p');
+    pTitle.innerHTML = `${title}`;
+    div.appendChild(pTitle);
+  
+    const img = document.createElement('img');
+    img.src = src;
+    div.appendChild(img);
+    
+    const pComment = document.createElement('p');
+    pComment.innerHTML = `${comment}`;
+    div.appendChild(pComment);
+  
+    const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(div);
+  
 };
+
+function renderError(){
+  const error = document.createElement('a');
+  error.innerHTML = '<- no album found, go back to home page'
+  error.href = '/';
+  const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(error);
+}
 
 
 
