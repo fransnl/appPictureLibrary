@@ -29,6 +29,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const comment = picture.comment;
         renderImage(
           `${album.path}/${picture.imgHiRes}`,
+          `${album.path}/${picture.imgLoRes}`,
           picture.id,
           picture.title,
           comment
