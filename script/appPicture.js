@@ -63,6 +63,7 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement("p");
   pTitle.innerHTML = `${title}`;
+  pTitle.className = `Title`;
   div.appendChild(pTitle);
 
   const img = document.createElement("img");
@@ -71,16 +72,16 @@ function renderImage(src, tag, title, comment) {
 
   const pComment = document.createElement("p");
   pComment.innerHTML = `${comment}`;
+  pComment.className = `Comment`;
   div.appendChild(pComment);
 
-<<<<<<< HEAD
-=======
   const editComment = document.createElement("button");
   editComment.textContent = `Edit`;
   div.appendChild(editComment);
 
   editComment.addEventListener("click", function () {
     editComment.hidden = true;
+    deleteComment.hidden = false;
     saveComment.hidden = false;
     pComment.contentEditable = true;
     pTitle.contentEditable = true;
@@ -99,7 +100,17 @@ function renderImage(src, tag, title, comment) {
     pTitle.contentEditable = false;
     pComment.style.backgroundColor = "grey";
     pComment.style.color = "lightgrey";
+    submitChange(pTitle.innerHTML, pComment.innerHTML);
   });
+
+const deleteComment = document.createElement("button");
+deleteComment.hidden = true;
+deleteComment.textContent = `Delete`;
+div.appendChild(deleteComment);
+
+deleteComment.addEventListener("click", function () {
+  submitRemove(pictureId);
+});
 
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
@@ -158,25 +169,30 @@ function submitRating(rating) {
     mode: "cors",
     body: JSON.stringify({ rating, id: pictureId }),
   });
-<<<<<<< HEAD
-};
-  
-  
+}
 
-
-
-
-
-
-  saveComment.addEventListener("click", function () {
-    saveComment.hidden = true; /* hide save button when save button is clicked */
-    editComment.hidden = false; /* display edit button when save button is clicked*/
-    pComment.contentEditable = false;
-    pComment.style.backgroundColor = "grey";
-    pComment.style.color = "lightgrey";
+function submitChange(title, comment) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/changeTitleComment", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title, comment, id: pictureId }),
   });
+}
 
-  /*const ratePicture = document.createElement("");*/
-=======
->>>>>>> main
+function submitRemove(id) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/removePicture", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ id: pictureId }),
+  });
 }
