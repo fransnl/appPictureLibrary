@@ -36,6 +36,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  const goBack = document.createElement("button");
+  goBack.textContent = `Go Back`;
+  div.appendChild(goBack);
+
   const ratings = document.querySelectorAll("#rating");
   const submit = document.querySelector(".submit");
   let selectedRating = null;
@@ -114,6 +118,14 @@ function renderImage(src, tag, title, comment) {
     submitRemove(pictureId);
   });
 
+  const addPicture = document.createElement("button");
+  addPicture.textContent = `Add Picture to my Album`;
+  div.appendChild(addPicture);
+
+  addPicture.addEventListener("click", function () {
+    submitPicture(title, comment, pictureId);
+  });
+
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
 
@@ -158,6 +170,19 @@ function renderImage(src, tag, title, comment) {
   submit.className = "submit";
   submit.innerHTML = "submit";
   rElement.appendChild(submit);
+}
+
+function submitPicture(title, comment, src) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/addPicture", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title, comment, src, id: pictureId }),
+  });
 }
 
 function submitRating(rating) {

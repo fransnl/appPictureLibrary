@@ -67,14 +67,12 @@ body {
   text-decoration: none;
   text-align: center;
   color: white;
-  
 }
 
-.FlexItem:hover{
+.FlexItem:hover {
   transform: translate3d(-1vh, -1vh, 0);
   transition: all 0.3s ease-in-out;
-  box-shadow: 10px 10px #504B78 ;
-
+  box-shadow: 10px 10px #504B78;
 }
 
 img {
@@ -82,7 +80,7 @@ img {
   object-fit: cover;
 }
 /* RATING*/
-#rating{
+#rating {
   background-color: #68629D;
   margin: 1vw;
   border-radius: 50%;
@@ -93,7 +91,7 @@ img {
   font-size: 2vw;
 }
 
-#rating:hover{
+#rating:hover {
   transform: translate3d(-0.3vw, -0.3vw, 0);
   transition: all 0.2s ease-in-out;
   box-shadow: 0.4vw 0.1vw #504B78 ;
