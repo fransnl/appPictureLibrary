@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    height: 100vh;
+    background-color: rgb(33, 150, 81);
+    background-image: url("../app-data/library/pictures/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1{
+    text-align: center;
+    margin-top: 50px;
+    color: rgba(247, 247, 247, 0.7);
+}
+.inputButton{
+    padding-left: 20px;
+}
+
+#container{   
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 55vw;
+    height: 55vh;
+    background-color: rgba(245, 245, 220, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+
+}
+
+#display-image{
+    border: 1px solid black;
+    height: 55vh;
+    width: 45vw;
+    background-color: rgb(255, 255, 255, 0.5);
+    background-size: cover;
+    
+
+}
+
