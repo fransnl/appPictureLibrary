@@ -92,25 +92,6 @@ app.post("/addAlbum", async (req, res) => {
   }
 });
 
-app.post("/removeAlbum", async (req, res) => {
-  const library = await pls
-    .readFile("../app-data/library/picture-test.json")
-    .then(JSON.parse);
-
-  for (const album of library.albums) {
-    for (const picture of album.pictures) {
-      if (req.body.id == picture.id) {
-        const idx = library.albums.findIndex((picture) => picture.id);
-        library.albums.splice(idx, 1);
-        await pls.writeFile(
-          "../app-data/library/picture-test.json",
-          JSON.stringify(library)
-        );
-      }
-    }
-  }
-});
-
 // Function to remove album
 app.post("/removeAlbum", async (req, res) => {
   const library = await pls
