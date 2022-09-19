@@ -38,6 +38,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  const goBack = document.createElement("button");
+  goBack.textContent = `Go Back`;
+  div.appendChild(goBack);
+
   const ratings = document.querySelectorAll("#rating");
   const submit = document.querySelector(".submit");
   let selectedRating = null;
@@ -65,16 +69,26 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement("p");
   pTitle.innerHTML = `${title}`;
+  pTitle.className = `Title`;
   div.appendChild(pTitle);
+
+  const pComment = document.createElement("p");
+  pComment.innerHTML = `${comment}`;
+  pComment.className = `Comment`;
+  div.appendChild(pComment);
 
   const img = document.createElement("img");
   img.src = src;
   div.appendChild(img);
 
+<<<<<<< HEAD
   const pComment = document.createElement("p");
   pComment.innerHTML = `${comment}`;
+  pComment.className = `Comment`;
   div.appendChild(pComment);
 
+=======
+>>>>>>> Hector
   const editComment = document.createElement("button");
   editComment.textContent = `Edit`;
   div.appendChild(editComment);
@@ -82,6 +96,7 @@ function renderImage(src, tag, title, comment) {
   editComment.addEventListener("click", function () {
     editComment.hidden = true;
     saveComment.hidden = false;
+    deleteComment.hidden = false;
     pComment.contentEditable = true;
     pTitle.contentEditable = true;
     pComment.style.backgroundColor = "aliceblue";
@@ -99,6 +114,29 @@ function renderImage(src, tag, title, comment) {
     pTitle.contentEditable = false;
     pComment.style.backgroundColor = "grey";
     pComment.style.color = "lightgrey";
+    const comment = document.querySelector(".Comment");
+    const title = document.querySelector(".Title");
+    submitChange(title.innerHTML, comment.innerHTML);
+<<<<<<< HEAD
+=======
+  });
+
+  const deleteComment = document.createElement("button");
+  deleteComment.hidden = true;
+  deleteComment.textContent = `Delete`;
+  div.appendChild(deleteComment);
+
+  deleteComment.addEventListener("click", function () {
+    submitRemove(pictureId);
+  });
+
+  const addPicture = document.createElement("button");
+  addPicture.textContent = `Add Picture to my Album`;
+  div.appendChild(addPicture);
+
+  addPicture.addEventListener("click", function () {
+    submitPicture(title, comment, pictureId);
+>>>>>>> Hector
   });
 
   const imgFlex = document.querySelector(".FlexWrap");
@@ -147,6 +185,19 @@ function renderImage(src, tag, title, comment) {
   rElement.appendChild(submit);
 }
 
+function submitPicture(title, comment, src) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/addPicture", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title, comment, src, id: pictureId }),
+  });
+}
+
 function submitRating(rating) {
   //fetch POST request to node server
   fetch("http://localhost:8080/addrating", {
@@ -159,3 +210,32 @@ function submitRating(rating) {
     body: JSON.stringify({ rating, id: pictureId }),
   });
 }
+
+function submitChange(title, comment) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/changeTitleComment", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title, comment, id: pictureId }),
+  });
+}
+<<<<<<< HEAD
+=======
+
+function submitRemove(id) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/changeTitleComment", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ id: pictureId }),
+  });
+}
+>>>>>>> Hector
