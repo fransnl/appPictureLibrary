@@ -9,6 +9,8 @@ app.listen(8080);
 app.use(express.json());
 app.use(cors());
 
+console.log("Server is running!");
+
 //listening to post requests on 8080/addrating
 app.post('/addrating', async (req, res) =>{
     const ratings = await pls.readFile('../app-data/library/picture-rating.json')
@@ -29,25 +31,47 @@ app.post("/changeTitleComment", async (req, res) => {
 
   for (const album of library.albums) {
     for (const picture of album.pictures) {
+      let origComment = req.body.comment;
+      let origTitle = req.body.title;
+      
       if (req.body.id == picture.id) {
-        picture.title = req.body.title;
-        picture.comment = req.body.comment;
-        await pls.writeFile(
-          "../app-data/library/picture-test.json",
-          JSON.stringify(library)
-        );
+        
+        if(picture.title != origTitle){
+          picture.title = req.body.title;
+          await pls.writeFile(
+            "../app-data/library/picture-test.json",
+            JSON.stringify(library)
+            );
+        } 
+        else {
+          console.log("Title not changed, no changes made to JSON file.");
+      }
+        
+      if(picture.comment != origComment){
+          picture.comment = req.body.comment;
+          await pls.writeFile(
+            "../app-data/library/picture-test.json",
+            JSON.stringify(library));
+            console.log("Comment update successful!");
+        } 
+        else {
+          console.log("Comment not changed, no changes made to JSON file.");
+        }
       }
     }
-  }
-  console.log(req.body.comment);
-  console.log(req.body.title);
+  } 
 });
 
 // Listening for removing a picture
 app.post("/removePicture", async (req, res) => {
+  try{ // If picture-test-file is not yet created, throw error
   const library = await pls
-    .readFile("../app-data/library/picture-test.json")
+    .readFile("../app-data/library/picture-library.json")
     .then(JSON.parse);
+  } catch(err) {
+    console.log(err);
+    throw new Error("Error reading file");
+  }
 
   for (const album of library.albums) {
     for (const picture of album.pictures) {
