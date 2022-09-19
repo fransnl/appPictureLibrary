@@ -96,6 +96,8 @@ function renderImage(src, tag, title, comment) {
   
     const imgFlex = document.querySelector('.FlexWrap');
     imgFlex.appendChild(div);
+
+    
   
 };
 
@@ -105,6 +107,32 @@ function renderError(){
   error.href = '/';
   const imgFlex = document.querySelector('.FlexWrap');
     imgFlex.appendChild(error);
+}
+
+function renderImageEmpty(){
+  const div = document.createElement('a');
+  div.className = `FlexItem`;
+  div.dataset.albumId = tag;
+  div.href = './picture.html?id=' + tag;
+
+  const checkBox = document.createElement('input');
+  checkBox.type = 'checkbox';
+  div.appendChild(checkBox);
+
+  const pTitle = document.createElement('p');
+  pTitle.innerHTML = `${title}`;
+  div.appendChild(pTitle);
+
+  const img = document.createElement('img');
+  img.src = src;
+  div.appendChild(img);
+  
+  const pComment = document.createElement('p');
+  pComment.innerHTML = `${comment}`;
+  div.appendChild(pComment);
+
+  const imgFlex = document.querySelector('.FlexWrap');
+  imgFlex.appendChild(div);
 }
 
 
