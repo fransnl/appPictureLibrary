@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   allRatings = await fetch(ratingJSON).then((response) => response.json());
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);
 
+  render:
   for (const album of library.albums) {
     for (const picture of album.pictures) {
       if (picture.id == pictureId) {
@@ -32,6 +33,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           picture.title,
           comment
         );
+        break render;
       }
     }
   }

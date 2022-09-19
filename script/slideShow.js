@@ -7,8 +7,6 @@ const url = window.location.href;
 const urlString = new URL(url);
 const pictureIds = urlString.searchParams.getAll("id");
 
-console.log(pictureIds)
-
 var images = [];
 
 var i = 0;
@@ -19,7 +17,9 @@ window.addEventListener('DOMContentLoaded', async () => {
         for (const picture of album.pictures) {
             pictureIds.forEach(item => {
                 if(picture.id == item){
-                    images.push(`${album.path}/${picture.imgHiRes}`);
+                    if(album.path != undefined){
+                        images.push(`${album.path}/${picture.imgHiRes}`);
+                    }
                 }
             });
         }

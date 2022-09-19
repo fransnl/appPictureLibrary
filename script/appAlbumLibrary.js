@@ -4,6 +4,9 @@
 //import * as proto from './picture-album-prototypes.js';
 import * as lib from '../model/picture-library-browser.js';
 
+const ratingJSON = "../app-data/library/picture-rating.json";
+let allRatings;
+
 const libraryJSON ="picture-library.json";
 let library;  //Global varibale, Loaded async from the current server in window.load event
 
@@ -11,6 +14,7 @@ let library;  //Global varibale, Loaded async from the current server in window.
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
+allRatings = await fetch(ratingJSON).then((response) => response.json());
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 

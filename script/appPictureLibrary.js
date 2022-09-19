@@ -30,7 +30,11 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
         for (const picture of album.pictures) {
             
           const comment = picture.comment.substring(0, 50) + '...';
-          renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+          if(album.path != undefined){
+            renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+          } else{
+            renderImage(`${picture.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
+          }
             
         }
       }
