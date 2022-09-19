@@ -8,6 +8,11 @@ const libraryJSON ="picture-library.json";
 let library;  //Global varibale, Loaded async from the current server in window.load event
 
 
+const url = window.location.href;
+const urlString = new URL(url);
+const albumId = urlString.searchParams.get("id");
+
+
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
@@ -16,9 +21,9 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
 
 for (const album of library.albums) {
 
-    renderImage(album.headerImage, album.id, album.title);
-    
+    renderImage(album.headerImage, album.id, album.title)
   }
+  renderImageEmpty();
 })
 
 window.addEventListener('click',  () => {
@@ -45,6 +50,41 @@ function renderImage(src, tag, title) {
 
   const imgFlex = document.querySelector('.FlexWrap');
   imgFlex.appendChild(div);
-
-  
 };
+
+
+
+function renderImageEmpty() {
+  const div = document.createElement('a');
+  
+  div.className = `FlexItem`;
+  
+
+  const pTitle = document.createElement('p');
+  pTitle.innerHTML = `New album`;
+  div.appendChild(pTitle);
+
+  const pPlusSign = document.createElement('button');
+  pPlusSign.innerHTML = "+";
+  div.appendChild(pPlusSign);
+
+  pPlusSign.addEventListener("click", function(){
+    submitNewAlbum(pTitle.innerHTML);
+  })
+
+  const imgFlex = document.querySelector('.FlexWrap');
+  imgFlex.appendChild(div);
+}
+
+function submitNewAlbum(){
+    //fetch POST request to node server
+    fetch("http://localhost:8080/addAlbum", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      body: JSON.stringify({ id: albumId }),
+    });
+  }

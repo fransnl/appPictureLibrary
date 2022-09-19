@@ -82,3 +82,20 @@ app.post("/removePicture", async (req, res) => {
     }
   }
 });
+
+app.post("/addAlbum", async (req, res) => {
+  const library = await pls
+    .readFile("../app-data/library/picture-library.json")
+    .then(JSON.parse);
+    var obj = {id: "putIdHere",
+              title: "New album",
+              comment: "New album",
+              path: undefined,
+              headerImage: undefined,
+              pictures: undefined};
+        library.albums.push(obj);
+        await pls.writeFile(
+          "../app-data/library/picture-test.json",
+          JSON.stringify(library)
+        );
+      });
