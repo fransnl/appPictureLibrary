@@ -100,3 +100,11 @@ function renderNewEmpty() {
     });
   }
 }
+
+function renderError(){
+  const error = document.createElement('a');
+  error.innerHTML = '<- no album found, go back to home page'
+  error.href = '/';
+  const imgFlex = document.querySelector('.FlexWrap');
+    imgFlex.appendChild(error);
+}

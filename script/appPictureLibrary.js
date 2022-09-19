@@ -5,7 +5,7 @@
 import * as lib from "../model/picture-library-browser.js";
 
 const libraryJSON = "picture-library.json";
-let library; //Global varibale, Loaded async from the current server in window.load event
+let library;  //Global varibale, Loaded async from the current server in window.load event
 
 const url = window.location.href;
 const urlString = new URL(url);
@@ -79,7 +79,31 @@ function renderImage(src, tag, title, comment) {
   checkBox.type = "checkbox";
   div.appendChild(checkBox);
 
-  const pTitle = document.createElement("p");
+  /*MENUBAR START*/
+  const menuBar = document.createElement('details');
+
+  const summ = document.createElement('summary');
+  menuBar.appendChild(summ);
+
+  const navMenuBar = document.createElement('nav')
+  navMenuBar.className = 'menu';
+
+  const aTagMenuBar = document.createElement('a')
+  aTagMenuBar.href = 'link';
+  aTagMenuBar.innerText = 'Hej Ferri'
+  navMenuBar.appendChild(aTagMenuBar)
+
+  menuBar.appendChild(navMenuBar)
+  
+  div.appendChild(menuBar)
+  /*MENUBAR END*/
+
+  const checkBox = document.createElement('input');
+  checkBox.type = 'checkbox';
+  checkBox.hidden = true;
+  div.appendChild(checkBox);
+
+  const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
   pTitle.className = 'pText Title'
   div.appendChild(pTitle);
@@ -88,10 +112,10 @@ function renderImage(src, tag, title, comment) {
   img.src = src;
   div.appendChild(img);
 
-  const pComment = document.createElement("p");
+  const pComment = document.createElement('p');
   pComment.innerHTML = `${comment}`;
   pComment.className = 'pText Comment'
-  div.appendChild(pComment); 
+  div.appendChild(pComment);
 
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
