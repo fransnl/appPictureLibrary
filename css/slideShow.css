@@ -3,29 +3,38 @@ margin: 0%;
 padding: 0%;
 }
 body{
-    background-color: aqua;
+    background-color: white;
     height: 100vh;
 }
 
 .img_Container{
-    position: relative;
-    display: flex;
+    background-color: black;
+    height: 90vh;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 2vh;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: auto;
     justify-content: center;
+    justify-items: center;
+    align-items: center;
 }
 
-img{
-    width: 50vw;
+.img-box{
+    width: 50%;
     height: auto;
 }
 
 .prev, .next {
-    margin-top: 20%;
+    position: fixed;
+    top: 93vh;
     position: absolute ;
     cursor: pointer;
     width: auto;
     padding: 20px;
     font-size: 20px;
-    color:white;
+    color:black;
     font-weight: bold;
 }
 
@@ -39,6 +48,7 @@ img{
 
 .prev:hover, .next:hover {
     background-color: rgba(182, 219, 123, 0.8);
+    border-radius: 5px;
 }
 
 #btn{
@@ -57,4 +67,16 @@ img{
 
 #btn:hover{
     color: aqua;
+}
+
+@media only screen and (max-width: 1000px){
+    .img-box{
+        width: 80%;
+    }
+}
+  
+@media only screen and (min-width: 1000px){
+    .img-box{
+        width: 50%;
+    }
 }
