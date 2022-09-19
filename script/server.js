@@ -64,14 +64,10 @@ app.post("/changeTitleComment", async (req, res) => {
 
 // Listening for removing a picture
 app.post("/removePicture", async (req, res) => {
-  try{ // If picture-test-file is not yet created, throw error
+  
   const library = await pls
     .readFile("../app-data/library/picture-library.json")
     .then(JSON.parse);
-  } catch(err) {
-    console.log(err);
-    throw new Error("Error reading file");
-  }
 
   for (const album of library.albums) {
     for (const picture of album.pictures) {
