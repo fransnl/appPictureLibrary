@@ -17,19 +17,19 @@ allRatings = await fetch(ratingJSON).then((response) => response.json());
 library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
 //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-  for (const album of library.albums) {
-    renderImage(album.headerImage, album.id, album.title);
-  }
-  // for (let i = 0; i < 1; i++) {
+for (const album of library.albums) {
+  renderImage(album.headerImage, album.id, album.title);
+}
+// for (let i = 0; i < 1; i++) {
   //   renderNewEmpty();
   // }
-
+  
   renderModal();
 
-  const addAlbumMenu = document.querySelector('#addAlbum');
-
+  const addAlbumMenu = document.querySelector('#newAlbum');
+  const modal = document.querySelector('.modal-content');
   addAlbumMenu.addEventListener('click', () => {
-
+    modal.style.display = 'block';
   })
 });
 
@@ -64,8 +64,21 @@ function renderImage(src, tag, title) {
 }
 
 function renderModal(){
-  const modal = document.createElement('div');
-  modal.className = 'modal-content';
+  const modal = document.querySelector('.modal-content');
+
+  const titleFormTitle = document.createElement('p');
+  titleForm.value = 'Title';
+  titleForm.className = 'titles';
+
+  const titleForm = document.createElement('input');
+  titleForm.className = 'input';
+  titleForm.id = 'title-input';
+  titleForm.type = 'text';
+
+  modal.appendChild(titleForm);
+  modal.appendChild(titleForm);
+
+
 }
 
 function renderNewEmpty() {

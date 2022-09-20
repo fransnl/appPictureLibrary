@@ -13,17 +13,38 @@ let albumNumber;
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
-allRatings = await fetch(ratingJSON).then((response) => response.json());
-library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
-//library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  allRatings = await fetch(ratingJSON).then((response) => response.json());
+  library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
+  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-for (const album of library.albums) {
-    renderImage(album.headerImage, album.id, album.title);
+  for (const album of library.albums) {
+      renderImage(album.headerImage, album.id, album.title);
   }
-  for (let i = 0; i < 1; i++) {
-    renderNewEmpty();
-  }
+  
+  renderModal();
+  
+  const addAlbumMenu = document.querySelector('#newAlbum');
+  const modal = document.querySelector('.modal');
+  addAlbumMenu.addEventListener('click', () => {
+    modal.style.display = 'block';
+  })
+  modal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  })
+  const submit = document.querySelector('.submit');
+  submit.addEventListener('click', () => {
+    const titleInput = document.querySelector('#title-input');
+    if(titleInput.value != ''){
+      addAlbum(titleInput.value, '', '');
+      modal.style.display = 'none';
+    }
+    else{
+
+    }
+
+  })
 })
+
 
 window.addEventListener('click',  () => {
 
@@ -56,48 +77,42 @@ function renderImage(src, tag, title) {
   imgFlex.appendChild(aTag);
 };
 
-function renderNewEmpty() {
-  albumNumber += albumNumber;
-  const div = document.createElement("a");
-  div.className = `FlexItem`;
+function renderModal(){
+  const modal = document.querySelector('.modal');
 
-  const deleteAlbum = document.createElement("button");
-  deleteAlbum.innerHTML = `X`;
-  div.appendChild(deleteAlbum);
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content'
 
-  deleteAlbum.addEventListener("click", function () {});
+  const titleFormTitle = document.createElement('p');
+  titleFormTitle.innerHTML = 'Title';
+  titleFormTitle.className = 'titles';
 
-  const pTitle = document.createElement("p");
-  pTitle.innerHTML = `New album`;
-  div.appendChild(pTitle);
+  const titleForm = document.createElement('input');
+  titleForm.className = 'input';
+  titleForm.id = 'title-input';
+  titleForm.type = 'text';
 
-  const div2 = document.createElement("button");
-  div2.className = `New Album`;
-  div2.innerHTML = "+"; // Make plus sign bigger?
-  div2.style.width = "200px";
-  div2.style.height = "200px";
-  div.appendChild(div2);
+  const submit = document.createElement('button');
+  submit.innerHTML = 'Add Album';
+  submit.className = 'submit'
 
-  div2.addEventListener("click", function () {
-    // Create a new empty box for each time a new album is created
-    renderNewEmpty();
+  modalContent.appendChild(titleFormTitle);
+  modalContent.appendChild(titleForm);
+  modalContent.appendChild(submit);
+  modal.appendChild(modalContent);
 
-    // Manipulate JSON; add a new album, get the index of that album, add pictures to it
+}
+
+
+function addAlbum(title, path, headerImage) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/addAlbum", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title: title, path: path, headerImage: headerImage }),
   });
-
-  const imgFlex = document.querySelector(".FlexWrap");
-  imgFlex.appendChild(div);
-
-  function submitRemove(id) {
-    //fetch POST request to node server
-    fetch("http://localhost:8080/removeAlbum", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify({ id: pictureId }),
-    });
-  }
-};
+}
