@@ -3,6 +3,7 @@
     padding: 0;
 }
 
+
 body{
     height: 100vh;
     background-color: rgb(33, 150, 81);
@@ -17,31 +18,70 @@ h1{
     color: rgba(247, 247, 247, 0.7);
 }
 .inputButton{
-    padding-left: 20px;
+    margin-top: 50px;
+    padding: 20px;
+    margin-left: 40%;
+    cursor: pointer;
 }
+
+
 
 #container{   
     position: absolute;
     top: 25%;
     left: 25%;
-    width: 55vw;
-    height: 55vh;
-    background-color: rgba(245, 245, 220, 0.5);
+    width: 50%;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    
 
 }
 
 #display-image{
     border: 1px solid black;
-    height: 55vh;
-    width: 45vw;
-    background-color: rgb(255, 255, 255, 0.5);
-    background-size: cover;
+    min-height: 50vh;
+    height: auto;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
     
+
+}
+
+@media only screen and (max-width: 620px) {
+
+    body{
+        background-image: none;
+    }
+
+    .inputButton{
+        padding-top: 50px;
+        padding-bottom: 50px;
+        padding-left: 20px;
+        margin-left: 30%;
+    }
+    
+    #container{   
+
+        margin-top: 300px;
+        width: 100%;
+        height: auto;
+        display: block;
+        top: 0;
+        left: 0;
+    }
+    
+    #display-image{
+        border: 1px solid black;
+        width: 94%;
+        height: auto;
+        background-size: contain;
+        margin-left: 10px;
+        margin-right: 10px;
+        
+    
+    }
 
 }
 
