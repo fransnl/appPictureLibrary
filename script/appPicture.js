@@ -213,7 +213,7 @@ function submitChange(title, comment) {
 
 function submitRemove(id) {
   //fetch POST request to node server
-  fetch("http://localhost:8080/changeTitleComment", {
+  fetch("http://localhost:8080/removePicture", {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -23,6 +23,14 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
   // for (let i = 0; i < 1; i++) {
   //   renderNewEmpty();
   // }
+
+  renderModal();
+
+  const addAlbumMenu = document.querySelector('#addAlbum');
+
+  addAlbumMenu.addEventListener('click', () => {
+
+  })
 });
 
 window.addEventListener("click", () => {
@@ -53,6 +61,11 @@ function renderImage(src, tag, title) {
 
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
+}
+
+function renderModal(){
+  const modal = document.createElement('div');
+  modal.className = 'modal-content';
 }
 
 function renderNewEmpty() {
