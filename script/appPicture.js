@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   //reading ratings and library json local files
   allRatings = await fetch(ratingJSON).then((response) => response.json());
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);
-
+  
   render:
   for (const album of library.albums) {
     for (const picture of album.pictures) {
@@ -38,10 +38,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  const goBack = document.createElement("button");
-  goBack.textContent = `Go Back`;
-  div.appendChild(goBack);
-
   const ratings = document.querySelectorAll("#rating");
   const submit = document.querySelector(".submit");
   let selectedRating = null;
@@ -51,7 +47,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       selectedRating = rating.innerHTML;
     });
   });
-
+  
   submit.addEventListener("click", () => {
     if (selectedRating == null) {
       console.log("no rating selected");
@@ -81,14 +77,6 @@ function renderImage(src, tag, title, comment) {
   img.src = src;
   div.appendChild(img);
 
-<<<<<<< HEAD
-  const pComment = document.createElement("p");
-  pComment.innerHTML = `${comment}`;
-  pComment.className = `Comment`;
-  div.appendChild(pComment);
-
-=======
->>>>>>> Hector
   const editComment = document.createElement("button");
   editComment.textContent = `Edit`;
   div.appendChild(editComment);
@@ -117,8 +105,6 @@ function renderImage(src, tag, title, comment) {
     const comment = document.querySelector(".Comment");
     const title = document.querySelector(".Title");
     submitChange(title.innerHTML, comment.innerHTML);
-<<<<<<< HEAD
-=======
   });
 
   const deleteComment = document.createElement("button");
@@ -136,7 +122,6 @@ function renderImage(src, tag, title, comment) {
 
   addPicture.addEventListener("click", function () {
     submitPicture(title, comment, pictureId);
->>>>>>> Hector
   });
 
   const imgFlex = document.querySelector(".FlexWrap");
@@ -223,8 +208,6 @@ function submitChange(title, comment) {
     body: JSON.stringify({ title, comment, id: pictureId }),
   });
 }
-<<<<<<< HEAD
-=======
 
 function submitRemove(id) {
   //fetch POST request to node server
@@ -238,4 +221,3 @@ function submitRemove(id) {
     body: JSON.stringify({ id: pictureId }),
   });
 }
->>>>>>> Hector

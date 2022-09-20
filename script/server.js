@@ -10,6 +10,17 @@ app.use(express.json());
 app.use(cors());
 
 console.log("Server is running!");
+
+app.get('/library', (req, res) =>{
+    response = pls.readFile("../app-data/library/picture-library.json");
+    res.send(response);
+});
+
+app.get('/ratings', (req, res) =>{
+    response = pls.readFile("../app-data/library/picture-rating.json");
+    res.send(response);
+});
+
 //listening to post requests on 8080/addrating
 app.post("/addrating", async (req, res) => {
   const ratings = await pls
