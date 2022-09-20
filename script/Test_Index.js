@@ -48,6 +48,6 @@ function renderImage(src, tag, title) {
   img.src = src;
   div.appendChild(img);
 
-  const imgFlex = document.querySelector('.container');
+  const imgFlex = document.querySelector('.FlexWrap');
   imgFlex.appendChild(aTag);
 };

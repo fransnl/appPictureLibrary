@@ -47,11 +47,11 @@ body {
 }
 /*Header LOGO*/
 
-.container {
+.FlexWrap {
   text-align: center;
 }
 
-.container div {
+.FlexWrap div {
   position: relative;
   display: inline-block;
   height: 300px;
@@ -63,14 +63,14 @@ body {
   box-shadow: 0 50px 150px -20px rgba(0, 0, 0, 0.75);
 }
 
-.container div img {
+.FlexWrap div img {
   width: 150%;
   margin: 0% -25%;
   min-height: 100%;
   transition: 0.7s all cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
-.container div .pText {
+.FlexWrap div .pText {
   position: absolute;
   bottom: -20px;
   left: 20px;
@@ -80,31 +80,31 @@ body {
   transition: 0.5s all cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
-.container div:hover {
+.FlexWrap div:hover {
   cursor: pointer;
   transform: scale(1.2);
   border-radius: 10px;
   box-shadow: 0 20px 300px -20px rgb(0, 0, 0);
 }
 
-.container div:hover:before {
+.FlexWrap div:hover:before {
   content: "";
   left: 350px;
 }
 
-.container div img {
+.FlexWrap div img {
   width: 150%;
   margin: 0% -20%;
   min-height: 100%;
 }
 
-.container div img:hover {
+.FlexWrap div img:hover {
   width: 150%;
   margin: 0% -10%;
   min-height: 100%;
 }
 
-.container div:hover .pText {
+.FlexWrap div:hover .pText {
   color: rgb(0, 0, 0);
   bottom: 20px;
   border-radius: 3px;
@@ -167,13 +167,37 @@ body {
 }
 @media only screen and (max-width: 1024px) {
   
-  .container div .pText {
+  .FlexWrap div .pText {
     color: rgb(0, 0, 0);
     bottom: 20px;
     border-radius: 3px;
     background-color: #ffffff;
     backdrop-filter: blur(9px);
     
+  }
+
+  .FlexWrap div:active {
+    cursor: pointer;
+    transform: scale(1.2);
+    border-radius: 10px;
+    box-shadow: 0 20px 300px -20px rgb(0, 0, 0);
+  }
+  
+  .FlexWrap div:active:before {
+    content: "";
+    left: 350px;
+  }
+  
+  .FlexWrap div img {
+    width: 150%;
+    margin: 0% -20%;
+    min-height: 100%;
+  }
+  
+  .FlexWrap div img:active {
+    width: 150%;
+    margin: 0% -10%;
+    min-height: 100%;
   }
   
   .header {
