@@ -76,7 +76,7 @@ function renderImage(srchigh, srclow, tag, title, comment) {
 
   const img = document.createElement("img");
   img.src = srchigh;
-img.srcset = `${srchigh} 3000w, ${srclow} 700w`
+  img.srcset = `${srchigh} 3000w, ${srclow} 700w`
   div.appendChild(img);
 
   const editComment = document.createElement("button");

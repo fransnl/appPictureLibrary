@@ -20,9 +20,9 @@ library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading lib
   for (const album of library.albums) {
     renderImage(album.headerImage, album.id, album.title);
   }
-  for (let i = 0; i < 1; i++) {
-    renderNewEmpty();
-  }
+  // for (let i = 0; i < 1; i++) {
+  //   renderNewEmpty();
+  // }
 });
 
 window.addEventListener("click", () => {

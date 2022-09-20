@@ -1,3 +1,4 @@
+'use strict'
 //fs/promises for async read/write
 import * as pls from "fs/promises";
 import express from "express";
@@ -153,7 +154,7 @@ app.post("/changeTitleComment", async (req, res) => {
   // Function to remove a picture when in an album view
   app.post("/removePicture", async (req, res) => {
     const library = await pls
-      .readFile("../app-data/library/picture-test.json")
+      .readFile("../app-data/library/picture-library.json")
       .then(JSON.parse);
   
     for (const album of library.albums) {

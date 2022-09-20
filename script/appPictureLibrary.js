@@ -74,11 +74,7 @@ function renderImage(src, tag, title, comment) {
   div.className = `FlexItem`;
   div.dataset.albumId = tag;
   div.href = "./picture.html?id=" + tag;
-
-  const checkBox = document.createElement("input");
-  checkBox.type = "checkbox";
-  div.appendChild(checkBox);
-
+  
   /*MENUBAR START*/
   const menuBar = document.createElement('details');
 
