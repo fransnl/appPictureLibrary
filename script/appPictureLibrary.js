@@ -39,6 +39,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
+    renderModal();
+
     const allPictures = document.querySelectorAll(".FlexItem");
     console.log(allPictures);
 
@@ -65,6 +67,41 @@ window.addEventListener("DOMContentLoaded", async () => {
         slideShow.href = surl;
       }
     });
+
+    const addNewPicBtn = document.querySelector('#addNewPic');
+    const modal = document.querySelector('.modal');
+    addNewPicBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+    })
+
+    const submit = document.querySelector('.submit');
+    submit.addEventListener('click', () => {
+      
+      const titleInput = document.querySelector('#title-input');
+      const commentInput = document.querySelector('#comment-input');
+      const fileInput = document.querySelectorAll('.fileInput');
+
+      const formData = new FormData();
+      formData.append('hiRes', fileInput[0].files[0]);
+      formData.append('orig', fileInput[1].files[0]);
+      formData.append('loRes', fileInput[2].files[0]);
+
+      if(titleInput.value != ''){
+        addPicture(formData);
+        modal.style.display = 'none';
+      }
+      else{
+
+      }
+
+    })
+
+    window.addEventListener('click', (e) => {
+      if (e.target == modal) {
+          modal.style.display = 'none';
+      }
+    })
+
   } else [renderError()];
 });
 
@@ -117,12 +154,74 @@ function renderImage(src, tag, title, comment) {
   imgFlex.appendChild(div);
 }
 
+function renderModal(){
+  const modal = document.querySelector('.modal');
+
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content'
+
+  const titleFormTitle = document.createElement('p');
+  titleFormTitle.innerHTML = 'Title';
+  titleFormTitle.className = 'titles';
+
+  const titleForm = document.createElement('input');
+  titleForm.className = 'input';
+  titleForm.id = 'title-input';
+  titleForm.type = 'text';
+
+  const commentFormTitle = document.createElement('p');
+  commentFormTitle.innerHTML = 'Comment';
+  commentFormTitle.className = 'comment';
+
+  const commentForm = document.createElement('input');
+  commentForm.className = 'input';
+  commentForm.id = 'comment-input';
+  commentForm.type = 'text';
+
+  const hiRes = document.createElement('input');
+  hiRes.className = 'fileInput';
+  hiRes.type = 'file';
+  hiRes.name = 'hiRes';
+
+  const orig = document.createElement('input');
+  orig.className = 'fileInput';
+  orig.type = 'file';
+  orig.name = 'orig';
+
+  const loRes = document.createElement('input');
+  loRes.className = 'fileInput';
+  loRes.type = 'file';
+  loRes.name = 'loRes';
+  
+  const submit = document.createElement('button');
+  submit.innerHTML = 'Add Album';
+  submit.className = 'submit';
+
+  modalContent.appendChild(titleFormTitle);
+  modalContent.appendChild(titleForm);
+  modalContent.appendChild(commentFormTitle);
+  modalContent.appendChild(commentForm);
+  modalContent.appendChild(hiRes);
+  modalContent.appendChild(orig);
+  modalContent.appendChild(loRes);
+  modalContent.appendChild(submit);
+  modal.appendChild(modalContent);
+
+}
+
 function renderError() {
   const error = document.createElement("a");
   error.innerHTML = "<- no album found, go back to home page";
   error.href = "/";
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(error);
+}
+
+function addPicture(file){
+  fetch("http://localhost:8080/addPicture", {
+    method: "POST",
+    body: file,
+  });
 }
 
 function submitRemove(id) {

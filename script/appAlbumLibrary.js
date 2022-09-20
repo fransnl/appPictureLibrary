@@ -1,8 +1,8 @@
 //Just to ensure we force js into strict mode in HTML scrips - we don't want any sloppy code
-"use strict"; // Try without strict mode
+'use strict';  // Try without strict mode
 
 //import * as proto from './picture-album-prototypes.js';
-import * as lib from "../model/picture-library-browser.js";
+import * as lib from '../model/picture-library-browser.js';
 
 const ratingJSON = "../app-data/library/picture-rating.json";
 let allRatings;
@@ -13,124 +13,127 @@ let albumNumber;
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
-allRatings = await fetch(ratingJSON).then((response) => response.json());
-library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
-//library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  allRatings = await fetch(ratingJSON).then((response) => response.json());
+  library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
+  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-for (const album of library.albums) {
-  renderImage(album.headerImage, album.id, album.title);
-}
-// for (let i = 0; i < 1; i++) {
-  //   renderNewEmpty();
-  // }
+  for (const album of library.albums) {
+      renderImage(album.headerImage, album.id, album.title);
+  }
   
   renderModal();
-
+  
   const addAlbumMenu = document.querySelector('#newAlbum');
-  const modal = document.querySelector('.modal-content');
+  const modal = document.querySelector('.modal');
   addAlbumMenu.addEventListener('click', () => {
     modal.style.display = 'block';
   })
-});
+  
+  const submit = document.querySelector('.submit');
+  submit.addEventListener('click', () => {
+    const titleInput = document.querySelector('#title-input');
+    const fileInput = document.querySelector('.fileInput');
+    
+    const formData = new FormData();
+    formData.append('image', fileInput.files[0]);
+    
 
-window.addEventListener("click", () => {
+    if(titleInput.value != ''){
+      addHeaderImg(formData);
+      addAlbum(titleInput.value, fileInput.files[0].name);
+      modal.style.display = 'none';
+    }
+    else{
+
+    }
+
+  })
+
+  window.addEventListener('click', (e) => {
+    if (e.target == modal) {
+        modal.style.display = 'none';
+    }
+  })
+
+})
+
+
+window.addEventListener('click',  () => {
+
   //just to confirm that the library is accessible as a global variable read async
-  console.log(`library has ${library.albums.length} albums`);
+  console.log (`library has ${library.albums.length} albums`);
 });
 
 //Render the images
 function renderImage(src, tag, title) {
 
-  const div = document.createElement('a');
-  div.href = './album.html?id=' + tag;
-  div.className = `FlexItem`;
-  div.dataset.albumId = tag;
+  const aTag = document.createElement('a')
+  aTag.href = './album.html?id=' + tag;
+  
+  const div = document.createElement('div');
+  aTag.appendChild(div);
 
-  const pTitle = document.createElement("p");
+  const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
   pTitle.className = 'pText Titel'
   div.appendChild(pTitle);
-
-  const pictureDiv = document.createElement('div');
-  pictureDiv.className = 'picContainer';
-  div.appendChild(pictureDiv);
-
+  
   const img = document.createElement('img');
   img.src = src;
-  pictureDiv.appendChild(img);
+  div.appendChild(img);
 
-  const imgFlex = document.querySelector(".FlexWrap");
-  imgFlex.appendChild(div);
-}
+  const imgFlex = document.querySelector('.FlexWrap');
+  imgFlex.appendChild(aTag);
+};
 
 function renderModal(){
-  const modal = document.querySelector('.modal-content');
+  const modal = document.querySelector('.modal');
+
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content'
 
   const titleFormTitle = document.createElement('p');
-  titleForm.value = 'Title';
-  titleForm.className = 'titles';
+  titleFormTitle.innerHTML = 'Title';
+  titleFormTitle.className = 'titles';
 
   const titleForm = document.createElement('input');
   titleForm.className = 'input';
   titleForm.id = 'title-input';
   titleForm.type = 'text';
 
-  modal.appendChild(titleForm);
-  modal.appendChild(titleForm);
+  const file = document.createElement('input');
+  file.className = 'fileInput';
+  file.type = 'file';
+  file.name = 'image';
+  
+  const submit = document.createElement('button');
+  submit.innerHTML = 'Add Album';
+  submit.className = 'submit'
 
+  modalContent.appendChild(titleFormTitle);
+  modalContent.appendChild(titleForm);
+  modalContent.appendChild(file);
+  modalContent.appendChild(submit);
+  modal.appendChild(modalContent);
 
 }
 
-function renderNewEmpty() {
-  albumNumber += albumNumber;
-  const div = document.createElement("a");
-  div.className = `FlexItem`;
-
-  const deleteAlbum = document.createElement("button");
-  deleteAlbum.innerHTML = `X`;
-  div.appendChild(deleteAlbum);
-
-  deleteAlbum.addEventListener("click", function () {});
-
-  const pTitle = document.createElement("p");
-  pTitle.innerHTML = `New album`;
-  div.appendChild(pTitle);
-
-  const div2 = document.createElement("button");
-  div2.className = `New Album`;
-  div2.innerHTML = "+"; // Make plus sign bigger?
-  div2.style.width = "200px";
-  div2.style.height = "200px";
-  div.appendChild(div2);
-
-  div2.addEventListener("click", function () {
-    // Create a new empty box for each time a new album is created
-    renderNewEmpty();
-
-    // Manipulate JSON; add a new album, get the index of that album, add pictures to it
+function addHeaderImg(file){
+  fetch("http://localhost:8080/addHeaderImg", {
+    method: "POST",
+    body: file,
   });
-
-  const imgFlex = document.querySelector(".FlexWrap");
-  imgFlex.appendChild(div);
-
-  function submitRemove(id) {
-    //fetch POST request to node server
-    fetch("http://localhost:8080/removeAlbum", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      body: JSON.stringify({ id: pictureId }),
-    });
-  }
 }
 
-function renderError(){
-  const error = document.createElement('a');
-  error.innerHTML = '<- no album found, go back to home page'
-  error.href = '/';
-  const imgFlex = document.querySelector('.FlexWrap');
-    imgFlex.appendChild(error);
+function addAlbum(title, fileName) {
+  //fetch POST request to node server
+  fetch("http://localhost:8080/addAlbum", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    body: JSON.stringify({ title: title, fileName: fileName }),
+  });
 }

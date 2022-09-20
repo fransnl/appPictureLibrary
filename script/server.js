@@ -4,11 +4,13 @@ import * as pls from "fs/promises";
 import express from "express";
 //cors needed for accepting requests from other "webservers"
 import cors from "cors";
+import fileUpload from "express-fileupload";
 
 const app = express();
 app.listen(8080);
 app.use(express.json());
 app.use(cors());
+app.use(fileUpload());
 
 console.log("Server is running!");
 
@@ -188,19 +190,32 @@ app.post("/addAlbum", async (req, res) => {
         .readFile("../app-data/library/picture-library.json")
         .then(JSON.parse);
 
+    const path = "../app-data/library/pictures/" + req.body.title;
+
+    pls.mkdir(path);
+
     library.albums.push({
             id: uniqueId(),
             title: req.body.title,
-            path: req.body.path,
-            headerImage: req.body.headerImage,
+            path: path,
+            headerImage: "../app-data/library/pictures/album-header/" + req.body.fileName,
             pictures: []
         });
 
     await pls.writeFile(
-    "../app-data/library/picture-test.json",
+    "../app-data/library/picture-library.json",
     JSON.stringify(library)
     );
 
+});
+
+app.post("/addHeaderImg", async (req, res) => {
+    
+    const { image } = req.files;
+
+    if (!image) return res.sendStatus(400);
+
+    image.mv("../app-data/library/pictures/album-header/" + image.name);
 });
   
   // Function to remove album
@@ -222,27 +237,24 @@ app.post("/addAlbum", async (req, res) => {
 //   });
   
 app.post("/addPicture", async (req, res) => {
-const library = await pls
-    .readFile("../app-data/library/picture-test.json")
-    .then(JSON.parse);
 
-    for (const album of library.albums) {
-        for (const picture of album.pictures) {
-            if (req.body.id == picture.id) {
-                picture.title = req.body.title;
-                picture.comment = req.body.comment;
-                picture.src = req.body.img;
+    console.log(req.files);
+// const library = await pls
+//     .readFile("../app-data/library/picture-test.json")
+//     .then(JSON.parse);
 
-                console.log(picture.title);
-                console.log(picture.comment);
-                console.log(picture.src);
-                await pls.writeFile(
-                "../app-data/library/new-album.json",
-                JSON.stringify(library)
-                );
-            }
-        }
-    }
+//     for (const album of library.albums) {
+//         for (const picture of album.pictures) {
+//             if (req.body.id == picture.id) {
+                
+//             }
+//         }
+//     }
+
+//     await pls.writeFile(
+//     "../app-data/library/new-album.json",
+//     JSON.stringify(library)
+//     );
 });
 
 function uniqueId() {
