@@ -69,16 +69,17 @@ function renderImage(srchigh, srclow, tag, title, comment) {
   pTitle.className = `Title`;
   div.appendChild(pTitle);
 
-  const pComment = document.createElement("p");
-  pComment.innerHTML = `${comment}`;
-  pComment.className = `Comment`;
-  div.appendChild(pComment);
-
+  
   const img = document.createElement("img");
   img.src = srchigh;
   img.srcset = `${srchigh} 3000w, ${srclow} 700w`
   div.appendChild(img);
-
+  
+  const pComment = document.createElement("p");
+  pComment.innerHTML = `${comment}`;
+  pComment.className = `Comment`;
+  div.appendChild(pComment);
+  
   const editComment = document.createElement("button");
   editComment.textContent = `Edit`;
   div.appendChild(editComment);
