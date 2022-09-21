@@ -17,7 +17,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
   
   if (albumId !== null) {
+    const slideShow = document.createElement("a");
+    slideShow.innerHTML = "go to slideshow";
+    slideShow.href = "#";
+
     const imgFlex = document.querySelector(".FlexWrap");
+    imgFlex.appendChild(slideShow);
 
     for (const album of library.albums) {
       if (album.id == albumId) {

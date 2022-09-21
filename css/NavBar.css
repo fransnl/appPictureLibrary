@@ -2,11 +2,10 @@ body {
     margin: 0;
     padding: 0;
     }
-    
-    
+
     a {
       text-decoration: none;
-      color: #808080;
+      color: #ababab;
     }
     
     a:hover {
@@ -16,17 +15,22 @@ body {
     
     .MenuContainer {
      margin: 0 auto;
-     width: 800px;
+     width: 100%;
      text-align: center;
     }
     
     .Menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
       list-style: none;
       font-size: 16px;
       line-height: 50px;
       vertical-align: top;
       text-decoration: none;
       font-family: Muli;
+      padding-inline-start: 0px;
     }
     
     .Menu li {
@@ -39,7 +43,7 @@ body {
       padding-left: 10px;
       z-index: 1;
     }
-    
+    /*The lines between the menu items*/
     .Menu li:before {
       content: "";
       height: 20px;
@@ -53,4 +57,18 @@ body {
     
     .Menu li:last-child:before {
       content: unset;
+    }
+
+    @media only screen and (max-width: 1024px){
+      a {
+        text-decoration: none;
+        color: #000000;
+      }
+
+      /* a:active {
+        color: rgb(122, 122, 122);
+        transition: 0.5s;
+      } */
+
+
     }
