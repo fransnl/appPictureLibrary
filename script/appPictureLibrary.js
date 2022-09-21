@@ -15,14 +15,9 @@ console.log(albumId);
 window.addEventListener("DOMContentLoaded", async () => {
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
-
+  
   if (albumId !== null) {
-    const slideShow = document.createElement("a");
-    slideShow.innerHTML = "go to slideshow";
-    slideShow.href = "#";
-
     const imgFlex = document.querySelector(".FlexWrap");
-    imgFlex.appendChild(slideShow);
 
     for (const album of library.albums) {
       if (album.id == albumId) {
@@ -39,11 +34,26 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    
     renderModal();
 
     const allPictures = document.querySelectorAll(".FlexItem");
     console.log(allPictures);
+
+    const select = document.querySelector('#slideshow');
+    const slideShow = document.querySelector('.slideshow');
+    slideShow.hidden = true;
+
+    select.addEventListener('click', () =>{
+      allPictures.forEach((item) => {
+        if (item.querySelector(".check").hidden === true) {
+          item.querySelector(".check").hidden = false;
+          slideShow.hidden = false;
+        } else {
+          item.querySelector(".check").hidden = true;
+          slideShow.hidden = true;
+        }
+      });
+    });
 
     slideShow.addEventListener("click", () => {
       const allChecked = [];
@@ -134,13 +144,15 @@ function renderImage(src, tag, title, comment) {
   aTagMenuBar.innerText = 'Hej Ferri'
   navMenuBar.appendChild(aTagMenuBar)
 
+  
   menuBar.appendChild(navMenuBar)
   
   div.appendChild(menuBar)
   /*MENUBAR END*/
-
+  
   const checkBox = document.createElement('input');
   checkBox.type = 'checkbox';
+  checkBox.className = 'check';
   checkBox.hidden = true;
   div.appendChild(checkBox);
 

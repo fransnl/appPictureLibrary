@@ -171,14 +171,6 @@ for (const album of library.albums) {
         JSON.stringify(library)
         );
     }
-    if(album.pictures.length == 0){
-        const idx = library.albums.indexOf(album);
-        library.albums.splice(idx, 1);
-        await pls.writeFile(
-        "../app-data/library/picture-library.json",
-        JSON.stringify(library)
-        );
-    }
 
     }
 }
@@ -217,39 +209,20 @@ app.post("/addHeaderImg", async (req, res) => {
 
     image.mv("../app-data/library/pictures/album-header/" + image.name);
 });
-  
-  // Function to remove album
-//   app.post("/removeAlbum", async (req, res) => {
-//     const library = await pls
-//       .readFile("../app-data/library/picture-test.json")
-//       .then(JSON.parse);
-  
-//     for (const album of library.albums) {
-//       if (req.body.id == album.id) {
-//         const idx = library.findIndex((album) => album.id);
-//         library.splice(idx, 1);
-//         await pls.writeFile(
-//           "../app-data/library/picture-test.json",
-//           JSON.stringify(library)
-//         );
-//       }
-//     }
-//   });
-  
+
+//adds picture
 app.post("/addPicture", async (req, res) => {
-
+    
     const {hiRes, orig, loRes} = req.files
-
+    
     if (!hiRes || !orig || !loRes) return res.sendStatus(400);
-
+    
     const library = await pls
-        .readFile("../app-data/library/picture-library.json")
-        .then(JSON.parse);
+    .readFile("../app-data/library/picture-library.json")
+    .then(JSON.parse);
 
     let Path = '';
 
-    console.log(req.body.albumId)
-    
     for (const album of library.albums) {
         if(album.id == req.body.albumId){
             album.pictures.push({
@@ -282,3 +255,21 @@ function uniqueId() {
     const randomness = Math.random().toString(36).substring(2);
     return dateString + randomness;
 }
+
+// Function to remove album
+//   app.post("/removeAlbum", async (req, res) => {
+//     const library = await pls
+//       .readFile("../app-data/library/picture-test.json")
+//       .then(JSON.parse);
+  
+//     for (const album of library.albums) {
+//       if (req.body.id == album.id) {
+//         const idx = library.findIndex((album) => album.id);
+//         library.splice(idx, 1);
+//         await pls.writeFile(
+//           "../app-data/library/picture-test.json",
+//           JSON.stringify(library)
+//         );
+//       }
+//     }
+//   });
