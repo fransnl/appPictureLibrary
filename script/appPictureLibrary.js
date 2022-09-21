@@ -10,7 +10,7 @@ let library;  //Global varibale, Loaded async from the current server in window.
 const url = window.location.href;
 const urlString = new URL(url);
 const albumId = urlString.searchParams.get("id");
-console.log(albumId);
+
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
   library = await fetch('http://localhost:8080/library').then((response) => response.json()); //reading library from JSON on local server

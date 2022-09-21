@@ -147,7 +147,7 @@ app.post("/changeTitleComment", async (req, res) => {
           picture.title = req.body.title;
           picture.comment = req.body.comment;
           await pls.writeFile(
-            "../app-data/library/picture-test.json",
+            "../app-data/library/picture-library.json",
             JSON.stringify(library)
           );
         }
