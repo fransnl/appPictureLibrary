@@ -14,12 +14,12 @@ app.use(fileUpload());
 
 console.log("Server is running!");
 
-app.get('/library', (req, res) =>{
+app.get('/library', async (req, res) =>{
     response = pls.readFile("../app-data/library/picture-library.json");
     res.send(response);
 });
 
-app.get('/ratings', (req, res) =>{
+app.get('/ratings', async (req, res) =>{
     response = pls.readFile("../app-data/library/picture-rating.json");
     res.send(response);
 });
@@ -238,23 +238,43 @@ app.post("/addHeaderImg", async (req, res) => {
   
 app.post("/addPicture", async (req, res) => {
 
-    console.log(req.files);
-// const library = await pls
-//     .readFile("../app-data/library/picture-test.json")
-//     .then(JSON.parse);
+    const {hiRes, orig, loRes} = req.files
 
-//     for (const album of library.albums) {
-//         for (const picture of album.pictures) {
-//             if (req.body.id == picture.id) {
-                
-//             }
-//         }
-//     }
+    //if (!hiRes || !orig || !loRes) return res.sendStatus(400);
 
-//     await pls.writeFile(
-//     "../app-data/library/new-album.json",
-//     JSON.stringify(library)
-//     );
+    const library = await pls
+        .readFile("../app-data/library/picture-library.json")
+        .then(JSON.parse);
+
+    let Path = '';
+    
+    for (const album of library.albums) {
+        for (const picture of album.pictures) {
+            if(album.id == req.body.albumId){
+                album.pictures.push({
+                    id: uniqueId(),
+                    title: req.body.title,
+                    comment: req.body.comment,
+                    imgHiRes: hiRes.name,
+                    imgOrig: orig.name,
+                    imgLoRes: loRes.name
+                });
+                Path = album.path;
+            }
+        }
+    }
+
+    
+    await pls.writeFile(
+        "../app-data/library/picture-test.json",
+        JSON.stringify(library)
+        );
+    
+        
+    hiRes.mv(Path + '/' + hiRes.name);
+    orig.mv(Path + '/' + orig.name);
+    loRes.mv(Path + '/' + loRes.name);
+
 });
 
 function uniqueId() {

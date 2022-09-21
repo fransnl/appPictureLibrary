@@ -39,6 +39,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
+    
     renderModal();
 
     const allPictures = document.querySelectorAll(".FlexItem");
@@ -81,10 +82,17 @@ window.addEventListener("DOMContentLoaded", async () => {
       const commentInput = document.querySelector('#comment-input');
       const fileInput = document.querySelectorAll('.fileInput');
 
+      const hiRes = new File([fileInput[0].files[0]], fileInput[0].files[0].name.split('.')[0] + "~big." + fileInput[0].files[0].name.split('.')[1]);
+      const orig = new File([fileInput[1].files[0]], fileInput[1].files[0].name.split('.')[0] + "~orig." + fileInput[1].files[0].name.split('.')[1]);
+      const loRes = new File([fileInput[2].files[0]], fileInput[2].files[0].name.split('.')[0] + "~small." + fileInput[2].files[0].name.split('.')[1]);
+
       const formData = new FormData();
-      formData.append('hiRes', fileInput[0].files[0]);
-      formData.append('orig', fileInput[1].files[0]);
-      formData.append('loRes', fileInput[2].files[0]);
+      formData.append('hiRes', hiRes);
+      formData.append('orig', orig);
+      formData.append('loRes', loRes);
+      formData.append('albumId', albumId);
+      formData.append('title', titleInput.value);
+      formData.append('comment', commentInput.value);
 
       if(titleInput.value != ''){
         addPicture(formData);
