@@ -65,8 +65,9 @@ window.addEventListener("DOMContentLoaded", async () => {
           allChecked.push(pid);
         }
       });
-      if (allChecked !== []) {
-        let surl = "/slideShow.html?";
+      let surl = "#"
+      if (allChecked.length != 0) {
+        surl = "/slideShow.html?";
         for (let i = 0; i < allChecked.length; i++) {
           if (i === 0) {
             surl += `id=${allChecked[i]}`;
@@ -75,8 +76,8 @@ window.addEventListener("DOMContentLoaded", async () => {
           }
         }
 
-        slideShow.href = surl;
       }
+      slideShow.href = surl;
     });
 
     const addNewPicBtn = document.querySelector('#addNewPic');
