@@ -1,5 +1,5 @@
 .modal{
-    display: none;
+    display: none;    
     position: fixed;
     z-index: 2;
     background-color: rgba(0,0,0,0.4);
@@ -9,13 +9,22 @@
 
 .modal-content{
     display: grid;
+    justify-items: center;
     background-color: white;
-    width: 80vw;
+    width: 40vw;
     height: 30vh;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
+    
 }
 
 .titles{
     text-align: center;
 }
+ .fileInput{
+    border-radius: 2px;
+    padding: 2px ;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(32, 32, 32);
+ }
