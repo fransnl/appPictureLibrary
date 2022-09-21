@@ -240,27 +240,27 @@ app.post("/addPicture", async (req, res) => {
 
     const {hiRes, orig, loRes} = req.files
 
-    //if (!hiRes || !orig || !loRes) return res.sendStatus(400);
+    if (!hiRes || !orig || !loRes) return res.sendStatus(400);
 
     const library = await pls
         .readFile("../app-data/library/picture-library.json")
         .then(JSON.parse);
 
     let Path = '';
+
+    console.log(req.body.albumId)
     
     for (const album of library.albums) {
-        for (const picture of album.pictures) {
-            if(album.id == req.body.albumId){
-                album.pictures.push({
-                    id: uniqueId(),
-                    title: req.body.title,
-                    comment: req.body.comment,
-                    imgHiRes: hiRes.name,
-                    imgOrig: orig.name,
-                    imgLoRes: loRes.name
-                });
-                Path = album.path;
-            }
+        if(album.id == req.body.albumId){
+            album.pictures.push({
+                id: uniqueId(),
+                title: req.body.title,
+                comment: req.body.comment,
+                imgHiRes: hiRes.name,
+                imgOrig: orig.name,
+                imgLoRes: loRes.name
+            });
+            Path = album.path;
         }
     }
 
