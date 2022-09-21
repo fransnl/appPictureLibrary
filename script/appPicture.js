@@ -19,8 +19,8 @@ const pictureId = urlString.searchParams.get("id");
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
   //reading ratings and library json local files
-  allRatings = await fetch(ratingJSON).then((response) => response.json());
-  library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);
+  allRatings = await fetch('http://localhost:8080/ratings').then((response) => response.json());
+  library = await fetch('http://localhost:8080/library').then((response) => response.json());
   
   render:
   for (const album of library.albums) {

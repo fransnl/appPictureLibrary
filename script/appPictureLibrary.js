@@ -13,7 +13,7 @@ const albumId = urlString.searchParams.get("id");
 console.log(albumId);
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
-  library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
+  library = await fetch('http://localhost:8080/library').then((response) => response.json()); //reading library from JSON on local server
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
   
   if (albumId !== null) {

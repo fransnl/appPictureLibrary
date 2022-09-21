@@ -13,8 +13,8 @@ let albumNumber;
 //use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
-  allRatings = await fetch(ratingJSON).then((response) => response.json());
-  library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
+  allRatings = await fetch('http://localhost:8080/ratings').then((response) => response.json());
+  library = await fetch('http://localhost:8080/library').then((response) => response.json());
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
   for (const album of library.albums) {

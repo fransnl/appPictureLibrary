@@ -15,12 +15,12 @@ app.use(fileUpload());
 console.log("Server is running!");
 
 app.get('/library', async (req, res) =>{
-    response = pls.readFile("../app-data/library/picture-library.json");
+    const response = await pls.readFile("../app-data/library/picture-library.json");
     res.send(response);
 });
 
 app.get('/ratings', async (req, res) =>{
-    response = pls.readFile("../app-data/library/picture-rating.json");
+    const response = await pls.readFile("../app-data/library/picture-rating.json");
     res.send(response);
 });
 
