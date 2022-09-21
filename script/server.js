@@ -163,14 +163,14 @@ const library = await pls
 
 for (const album of library.albums) {
     for (const picture of album.pictures) {
-    if (req.body.id == picture.id) {
-        const idx = album.pictures.indexOf(picture);
-        album.pictures.splice(idx, 1);
-        await pls.writeFile(
-        "../app-data/library/picture-test.json",
-        JSON.stringify(library)
-        );
-    }
+        if (req.body.id == picture.id) {
+            const idx = album.pictures.indexOf(picture);
+            album.pictures.splice(idx, 1);
+            await pls.writeFile(
+            "../app-data/library/picture-library.json",
+            JSON.stringify(library)
+            );
+        }
 
     }
 }
@@ -239,7 +239,7 @@ app.post("/addPicture", async (req, res) => {
 
     
     await pls.writeFile(
-        "../app-data/library/picture-test.json",
+        "../app-data/library/picture-library.json",
         JSON.stringify(library)
         );
     
