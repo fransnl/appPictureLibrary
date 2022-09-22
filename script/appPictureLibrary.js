@@ -37,7 +37,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     renderModal();
 
     const allPictures = document.querySelectorAll(".FlexItem");
-    console.log(allPictures);
 
     const select = document.querySelector('#slideshow');
     const slideShow = document.querySelector('.slideshow');
@@ -58,8 +57,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     slideShow.addEventListener("click", () => {
       const allChecked = [];
       allPictures.forEach((item) => {
-        if (item.querySelector("input").checked === true) {
-          const purl = item.href;
+        if (item.querySelector(".check").checked === true) {
+          const purl = item.querySelector(".link").href;
           const purlString = new URL(purl);
           const pid = purlString.searchParams.get("id");
           allChecked.push(pid);
