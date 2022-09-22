@@ -132,23 +132,23 @@ function renderImage(src, tag, title, comment) {
   div.href = "./picture.html?id=" + tag;
   
   /*MENUBAR START*/
-  const menuBar = document.createElement('details');
+  // const menuBar = document.createElement('details');
 
-  const summ = document.createElement('summary');
-  menuBar.appendChild(summ);
+  // const summ = document.createElement('summary');
+  // menuBar.appendChild(summ);
 
-  const navMenuBar = document.createElement('nav')
-  navMenuBar.className = 'menu';
+  // const navMenuBar = document.createElement('nav')
+  // navMenuBar.className = 'menu';
 
-  const aTagMenuBar = document.createElement('a')
-  aTagMenuBar.href = 'link';
-  aTagMenuBar.innerText = 'Hej Ferri'
-  navMenuBar.appendChild(aTagMenuBar)
+  // const aTagMenuBar = document.createElement('a')
+  // aTagMenuBar.href = 'link';
+  // aTagMenuBar.innerText = 'Hej Ferri'
+  // navMenuBar.appendChild(aTagMenuBar)
 
   
-  menuBar.appendChild(navMenuBar)
+  // menuBar.appendChild(navMenuBar)
   
-  div.appendChild(menuBar)
+  // div.appendChild(menuBar)
   /*MENUBAR END*/
   
   const checkBox = document.createElement('input');
