@@ -5,64 +5,6 @@ body {
   box-sizing: border-box;
 }
 
-.header {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  width: 50vw;
-  margin-left: 25vw;
-}
-
-.headerText {
-  color: #504B78;
-  font-size: 8vw;
-  font-family: impact;
-}
-
-.pText {
-  width: 50%;
-  margin-inline-start: auto;
-  margin-inline-end: auto;
-}
-
-.Title {
-  font-size: larger;
-}
-
-.Comment {
-  border-radius: 5px;
-}
-
-#h1 {
-  text-align: right;
-}
-
-#h2 {
-  text-align: left;
-}
-
-
-.logo {
-  width: 8vw;
-  animation: rotate 40s linear infinite;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.logobg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2vh;
-  background-color: #504B78;
-  width: 14vw;
-  height: 14vw;
-  border-radius: 50%;
-}
-
 .FlexWrap {
   display: grid;
   flex-wrap: wrap;
