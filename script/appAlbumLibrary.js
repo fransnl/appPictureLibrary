@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const modal = document.querySelector('.modal');
   addAlbumMenu.addEventListener('click', () => {
     modal.style.display = 'block';
-  })
+  });
   
   const submit = document.querySelector('.submit');
   submit.addEventListener('click', () => {
@@ -47,15 +47,14 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     }
 
-  })
+  });
 
   window.addEventListener('click', (e) => {
     if (e.target == modal) {
         modal.style.display = 'none';
     }
   })
-
-})
+});
 
 
 window.addEventListener('click',  () => {
@@ -67,7 +66,7 @@ window.addEventListener('click',  () => {
 //Render the images
 function renderImage(src, tag, title) {
 
-  const aTag = document.createElement('a')
+  const aTag = document.createElement('a');
   aTag.href = './album.html?id=' + tag;
   
   const div = document.createElement('div');
@@ -75,7 +74,7 @@ function renderImage(src, tag, title) {
 
   const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
-  pTitle.className = 'pText Titel'
+  pTitle.className = 'pText Titel';
   div.appendChild(pTitle);
   
   const img = document.createElement('img');
@@ -90,7 +89,7 @@ function renderModal(){
   const modal = document.querySelector('.modal');
 
   const modalContent = document.createElement('div');
-  modalContent.className = 'modal-content'
+  modalContent.className = 'modal-content';
 
   const titleFormTitle = document.createElement('p');
   titleFormTitle.innerHTML = 'Title';
@@ -108,7 +107,7 @@ function renderModal(){
   
   const submit = document.createElement('button');
   submit.innerHTML = 'Add Album';
-  submit.className = 'submit'
+  submit.className = 'submit';
 
   modalContent.appendChild(titleFormTitle);
   modalContent.appendChild(titleForm);

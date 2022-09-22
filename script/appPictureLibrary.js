@@ -2,37 +2,36 @@
 "use strict"; // Try without strict mode
 
 //import * as proto from './picture-album-prototypes.js';
-import * as lib from "../model/picture-library-browser.js";
+import * as lib from "../model/picture-library-browser.js"; // Unused
+const libraryJSON = "picture-library.json";                 // Unused
 
-const libraryJSON = "picture-library.json";
-let library;  //Global varibale, Loaded async from the current server in window.load event
+let library;  // Global variable, loaded async from the current server in window.load event
 
 const url = window.location.href;
-const urlString = new URL(url);
+const urlString = new URL(url); // How is it used in code?
 const albumId = urlString.searchParams.get("id");
 
-//use the DOMContentLoaded, or window load event to read the library async and render the images
+// Use the DOMContentLoaded, or window load event to read the library async and render the images
 window.addEventListener("DOMContentLoaded", async () => {
   library = await fetch('http://localhost:8080/library').then((response) => response.json()); //reading library from JSON on local server
-  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  // Library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON // UNUSED
   
   if (albumId !== null) {
-    const imgFlex = document.querySelector(".FlexWrap");
+    const imgFlex = document.querySelector(".FlexWrap");  // Unused?
 
     for (const album of library.albums) {
       if (album.id == albumId) {
         for (const picture of album.pictures) {
             
           const comment = picture.comment.substring(0, 50) + '...';
-          if(album.path != undefined){
+          if (album.path != undefined) {
             renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
-          } else{
+          } else {
             renderImage(`${picture.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
-          }
-            
-        }
-      }
-    }
+          };
+        };
+      };
+    };
 
     renderModal();
 
@@ -43,7 +42,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const slideShow = document.querySelector('.slideshow');
     slideShow.hidden = true;
 
-    select.addEventListener('click', () =>{
+    select.addEventListener('click', () => {
       allPictures.forEach((item) => {
         if (item.querySelector(".check").hidden === true) {
           item.querySelector(".check").hidden = false;
@@ -51,7 +50,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         } else {
           item.querySelector(".check").hidden = true;
           slideShow.hidden = true;
-        }
+        };
       });
     });
 
@@ -65,26 +64,28 @@ window.addEventListener("DOMContentLoaded", async () => {
           allChecked.push(pid);
         }
       });
-      let surl = "#"
+      let sUrl = "#";
       if (allChecked.length != 0) {
-        surl = "/slideShow.html?";
+        sUrl = "/slideShow.html?";
         for (let i = 0; i < allChecked.length; i++) {
           if (i === 0) {
-            surl += `id=${allChecked[i]}`;
+            sUrl += `id=${allChecked[i]}`;
           } else {
-            surl += `&id=${allChecked[i]}`;
+            sUrl += `&id=${allChecked[i]}`;
           }
         }
 
       }
-      slideShow.href = surl;
+      slideShow.href = sUrl;
     });
 
+    // Query selector returns the first element from node that matches the selector
     const addNewPicBtn = document.querySelector('#addNewPic');
     const modal = document.querySelector('.modal');
+    // Event listener that waits for a click
     addNewPicBtn.addEventListener('click', () => {
       modal.style.display = 'block';
-    })
+    });
 
     const submit = document.querySelector('.submit');
     submit.addEventListener('click', () => {
@@ -98,22 +99,27 @@ window.addEventListener("DOMContentLoaded", async () => {
       const loRes = new File([fileInput[2].files[0]], fileInput[2].files[0].name.split('.')[0] + "~small." + fileInput[2].files[0].name.split('.')[1]);
 
       const formData = new FormData();
-      formData.append('hiRes', hiRes);
-      formData.append('orig', orig);
-      formData.append('loRes', loRes);
-      formData.append('albumId', albumId);
-      formData.append('title', titleInput.value);
-      formData.append('comment', commentInput.value);
+
+      [('hiRes', hiRes), ('orig', orig), ('loRes', loRes), ('albumId', albumId), 
+      ('title', titleInput.value), ('comment', commentInput.value)]
+      .forEach((item) => formData.append(item));
+
+      // formData.append('hiRes', hiRes);
+      // formData.append('orig', orig);
+      // formData.append('loRes', loRes);
+      // formData.append('albumId', albumId);
+      // formData.append('title', titleInput.value);
+      // formData.append('comment', commentInput.value);
 
       if(titleInput.value != ''){
         addPicture(formData);
         modal.style.display = 'none';
       }
       else{
-
+        // Don't add picture
       }
 
-    })
+    });
 
     window.addEventListener('click', (e) => {
       if (e.target == modal) {
@@ -134,22 +140,23 @@ function renderImage(src, tag, title, comment) {
   /*MENUBAR START*/
   const menuBar = document.createElement('details');
 
-  const summ = document.createElement('summary');
-  menuBar.appendChild(summ);
+  const summary = document.createElement('summary');
+  menuBar.appendChild(summary);
 
-  const navMenuBar = document.createElement('nav')
+  const navMenuBar = document.createElement('nav');
   navMenuBar.className = 'menu';
 
-  const aTagMenuBar = document.createElement('a')
+  const aTagMenuBar = document.createElement('a');
   aTagMenuBar.href = 'link';
-  aTagMenuBar.innerText = 'Hej Ferri'
-  navMenuBar.appendChild(aTagMenuBar)
+  aTagMenuBar.innerText = 'Hej Ferri';
+  navMenuBar.appendChild(aTagMenuBar);
 
   
-  menuBar.appendChild(navMenuBar)
+  menuBar.appendChild(navMenuBar);
   
-  div.appendChild(menuBar)
-  /*MENUBAR END*/
+  div.appendChild(menuBar);
+
+  // MENUBAR END
   
   const checkBox = document.createElement('input');
   checkBox.type = 'checkbox';
@@ -159,7 +166,7 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
-  pTitle.className = 'pText Title'
+  pTitle.className = 'pText Title';
   div.appendChild(pTitle);
 
   const img = document.createElement("img");
@@ -168,7 +175,7 @@ function renderImage(src, tag, title, comment) {
 
   const pComment = document.createElement('p');
   pComment.innerHTML = `${comment}`;
-  pComment.className = 'pText Comment'
+  pComment.className = 'pText Comment';
   div.appendChild(pComment);
 
   const imgFlex = document.querySelector(".FlexWrap");
@@ -218,18 +225,23 @@ function renderModal(){
   submit.innerHTML = 'Add Album';
   submit.className = 'submit';
 
-  modalContent.appendChild(titleFormTitle);
-  modalContent.appendChild(titleForm);
-  modalContent.appendChild(commentFormTitle);
-  modalContent.appendChild(commentForm);
-  modalContent.appendChild(hiRes);
-  modalContent.appendChild(orig);
-  modalContent.appendChild(loRes);
-  modalContent.appendChild(submit);
+
+  [titleFormTitle, titleForm, commentFormTitle, commentForm, hiRes, orig, loRes, submit]
+  .forEach((item) => listItem.appendChild(item));
+
+  // modalContent.appendChild(titleFormTitle);
+  // modalContent.appendChild(titleForm);
+  // modalContent.appendChild(commentFormTitle);
+  // modalContent.appendChild(commentForm);
+  // modalContent.appendChild(hiRes);
+  // modalContent.appendChild(orig);
+  // modalContent.appendChild(loRes);
+  // modalContent.appendChild(submit);
   modal.appendChild(modalContent);
 
 }
 
+// Functions 
 function renderError() {
   const error = document.createElement("a");
   error.innerHTML = "<- no album found, go back to home page";
@@ -245,15 +257,17 @@ function addPicture(file){
   });
 }
 
-function submitRemove(id) {
-  //fetch POST request to node server
-  fetch("http://localhost:8080/removeAlbum", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    body: JSON.stringify({ id: pictureId }),
-  });
-}
+// UNUSED?
+
+// function submitRemove(id) {
+//   //fetch POST request to node server
+//   fetch("http://localhost:8080/removeAlbum", {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//     mode: "cors",
+//     body: JSON.stringify({ id: pictureId }),
+//   });
+// }
