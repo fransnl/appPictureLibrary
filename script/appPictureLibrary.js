@@ -36,29 +36,28 @@ window.addEventListener("DOMContentLoaded", async () => {
     renderModal();
 
     const allPictures = document.querySelectorAll(".FlexItem");
-    console.log(allPictures);
 
     const select = document.querySelector('#slideshow');
     const slideShow = document.querySelector('.slideshow');
-    slideShow.hidden = true;
+    slideShow.style.visibility = "hidden";
 
     select.addEventListener('click', () => {
       allPictures.forEach((item) => {
-        if (item.querySelector(".check").hidden === true) {
-          item.querySelector(".check").hidden = false;
-          slideShow.hidden = false;
+        if (item.querySelector(".check").style.visibility === "hidden") {
+          item.querySelector(".check").style.visibility = "visible";
+          slideShow.style.visibility = "visible";
         } else {
-          item.querySelector(".check").hidden = true;
-          slideShow.hidden = true;
-        };
+          item.querySelector(".check").style.visibility = "hidden";
+          slideShow.style.visibility = "hidden";
+        }
       });
     });
 
     slideShow.addEventListener("click", () => {
       const allChecked = [];
       allPictures.forEach((item) => {
-        if (item.querySelector("input").checked === true) {
-          const purl = item.href;
+        if (item.querySelector(".check").checked === true) {
+          const purl = item.querySelector(".link").href;
           const purlString = new URL(purl);
           const pid = purlString.searchParams.get("id");
           allChecked.push(pid);
@@ -132,36 +131,19 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 //Render the images
 function renderImage(src, tag, title, comment) {
-  const div = document.createElement("a");
+
+  const div = document.createElement("div");
   div.className = `FlexItem`;
-  div.dataset.albumId = tag;
-  div.href = "./picture.html?id=" + tag;
-  
-  /*MENUBAR START*/
-  const menuBar = document.createElement('details');
 
-  const summary = document.createElement('summary');
-  menuBar.appendChild(summary);
-
-  const navMenuBar = document.createElement('nav');
-  navMenuBar.className = 'menu';
-
-  const aTagMenuBar = document.createElement('a');
-  aTagMenuBar.href = 'link';
-  aTagMenuBar.innerText = 'Hej Ferri';
-  navMenuBar.appendChild(aTagMenuBar);
-
-  
-  menuBar.appendChild(navMenuBar);
-  
-  div.appendChild(menuBar);
-
-  // MENUBAR END
+  const link = document.createElement('a');
+  link.className = `link`;
+  link.dataset.albumId = tag;
+  link.href = "./picture.html?id=" + tag;
   
   const checkBox = document.createElement('input');
   checkBox.type = 'checkbox';
   checkBox.className = 'check';
-  checkBox.hidden = true;
+  checkBox.style.visibility = "hidden";
   div.appendChild(checkBox);
 
   const pTitle = document.createElement('p');
@@ -171,7 +153,7 @@ function renderImage(src, tag, title, comment) {
 
   const img = document.createElement("img");
   img.src = src;
-  div.appendChild(img);
+  link.appendChild(img);
 
   const pComment = document.createElement('p');
   pComment.innerHTML = `${comment}`;
@@ -179,6 +161,7 @@ function renderImage(src, tag, title, comment) {
   div.appendChild(pComment);
 
   const imgFlex = document.querySelector(".FlexWrap");
+  div.appendChild(link);
   imgFlex.appendChild(div);
 }
 

@@ -65,10 +65,10 @@ body {
         color: #000000;
       }
 
-      /* a:active {
+      a:active {
         color: rgb(122, 122, 122);
         transition: 0.5s;
-      } */
+      }
 
 
     }

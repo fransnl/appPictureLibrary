@@ -74,6 +74,61 @@ function renderImage(srchigh, srclow, tag, title, comment) {
   img.src = srchigh;
   img.srcset = `${srchigh} 3000w, ${srclow} 700w`
   div.appendChild(img);
+
+  /*Här behöver rating dommen komma in*/
+  /*Rating Början */
+  const rElement = document.querySelector(".ratings");
+
+  const pRating = document.createElement("p");
+  pRating.innerHTML = "no ratings yet!";
+  pRating.className = "totRating";
+
+  let totRating = [];
+  let ratingExist = false;
+
+  for (const rating of allRatings.ratings) {
+    if (rating.id == pictureId) {
+      ratingExist = true;
+      totRating = [...totRating, parseInt(rating.rating)];
+    }
+  }
+
+  if ((totRating != undefined || totRating.length != 0) & ratingExist) {
+    let nrofratings = 0;
+    let r = 0;
+    for (const rating of totRating) {
+      nrofratings += 1;
+      r += rating;
+    }
+    r = r / nrofratings;
+    pRating.innerHTML = `Rating: ${r}`;
+  }
+
+  rElement.append(pRating);
+
+  const rateNumDiv = document.createElement('div');
+  rateNumDiv.className = 'numContainer';
+
+  for (let i = 0; i < 5; i++) {
+    const rating = document.createElement("div");
+    rating.id = "rating";
+    rating.href = "#";
+    rating.tabIndex = i + 1;
+    rating.innerHTML = i + 1;
+    rateNumDiv.appendChild(rating);
+  }
+  
+  rElement.appendChild(rateNumDiv);
+  
+  submit.className = "submit";
+  submit.innerHTML = "submit";
+  rElement.appendChild(submit);
+
+  div.appendChild(rElement);
+  
+
+
+  /*Rating Slutet */
   
   const pComment = document.createElement("p");
   pComment.innerHTML = `${comment}`;
@@ -130,47 +185,7 @@ function renderImage(srchigh, srclow, tag, title, comment) {
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
 
-  const rElement = document.querySelector(".ratings");
 
-  const pRating = document.createElement("p");
-  pRating.innerHTML = "no ratings yet!";
-  pRating.className = "totRating";
-
-  let totRating = [];
-  let ratingExist = false;
-
-  for (const rating of allRatings.ratings) {
-    if (rating.id == pictureId) {
-      ratingExist = true;
-      totRating = [...totRating, parseInt(rating.rating)];
-    }
-  }
-
-  if ((totRating != undefined || totRating.length != 0) & ratingExist) {
-    let nrofratings = 0;
-    let r = 0;
-    for (const rating of totRating) {
-      nrofratings += 1;
-      r += rating;
-    }
-    r = r / nrofratings;
-    pRating.innerHTML = `Rating: ${r}`;
-  }
-
-  rElement.append(pRating);
-
-  for (let i = 0; i < 5; i++) {
-    const rating = document.createElement("div");
-    rating.id = "rating";
-    rating.href = "#";
-    rating.tabIndex = i + 1;
-    rating.innerHTML = i + 1;
-    rElement.appendChild(rating);
-  }
-
-  submit.className = "submit";
-  submit.innerHTML = "submit";
-  rElement.appendChild(submit);
 }
 
 function submitPicture(title, comment, src) {
