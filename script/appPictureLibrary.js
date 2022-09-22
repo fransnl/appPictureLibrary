@@ -228,16 +228,3 @@ function addPicture(file){
     body: file,
   });
 }
-
-function submitRemove(id) {
-  //fetch POST request to node server
-  fetch("http://localhost:8080/removeAlbum", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    body: JSON.stringify({ id: pictureId }),
-  });
-}
