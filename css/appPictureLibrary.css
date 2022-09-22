@@ -5,6 +5,12 @@ body {
   box-sizing: border-box;
 }
 
+.FlexItem{
+  display: grid;
+  grid-template-rows: 2vh;
+}
+
+
 .FlexWrap {
   display: grid;
   flex-wrap: wrap;

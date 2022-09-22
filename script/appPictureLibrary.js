@@ -41,16 +41,16 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const select = document.querySelector('#slideshow');
     const slideShow = document.querySelector('.slideshow');
-    slideShow.hidden = true;
+    slideShow.style.visibility = "hidden";
 
     select.addEventListener('click', () =>{
       allPictures.forEach((item) => {
-        if (item.querySelector(".check").hidden === true) {
-          item.querySelector(".check").hidden = false;
-          slideShow.hidden = false;
+        if (item.querySelector(".check").style.visibility === "hidden") {
+          item.querySelector(".check").style.visibility = "visible";
+          slideShow.style.visibility = "visible";
         } else {
-          item.querySelector(".check").hidden = true;
-          slideShow.hidden = true;
+          item.querySelector(".check").style.visibility = "hidden";
+          slideShow.style.visibility = "hidden";
         }
       });
     });
@@ -138,7 +138,7 @@ function renderImage(src, tag, title, comment) {
   const checkBox = document.createElement('input');
   checkBox.type = 'checkbox';
   checkBox.className = 'check';
-  checkBox.hidden = true;
+  checkBox.style.visibility = "hidden";
   div.appendChild(checkBox);
 
   const pTitle = document.createElement('p');
