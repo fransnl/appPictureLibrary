@@ -126,30 +126,14 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 //Render the images
 function renderImage(src, tag, title, comment) {
-  const div = document.createElement("a");
+
+  const div = document.createElement("div");
   div.className = `FlexItem`;
-  div.dataset.albumId = tag;
-  div.href = "./picture.html?id=" + tag;
-  
-  /*MENUBAR START*/
-  // const menuBar = document.createElement('details');
 
-  // const summ = document.createElement('summary');
-  // menuBar.appendChild(summ);
-
-  // const navMenuBar = document.createElement('nav')
-  // navMenuBar.className = 'menu';
-
-  // const aTagMenuBar = document.createElement('a')
-  // aTagMenuBar.href = 'link';
-  // aTagMenuBar.innerText = 'Hej Ferri'
-  // navMenuBar.appendChild(aTagMenuBar)
-
-  
-  // menuBar.appendChild(navMenuBar)
-  
-  // div.appendChild(menuBar)
-  /*MENUBAR END*/
+  const link = document.createElement('a');
+  link.className = `link`;
+  link.dataset.albumId = tag;
+  link.href = "./picture.html?id=" + tag;
   
   const checkBox = document.createElement('input');
   checkBox.type = 'checkbox';
@@ -160,18 +144,19 @@ function renderImage(src, tag, title, comment) {
   const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
   pTitle.className = 'pText Title'
-  div.appendChild(pTitle);
+  link.appendChild(pTitle);
 
   const img = document.createElement("img");
   img.src = src;
-  div.appendChild(img);
+  link.appendChild(img);
 
   const pComment = document.createElement('p');
   pComment.innerHTML = `${comment}`;
   pComment.className = 'pText Comment'
-  div.appendChild(pComment);
+  link.appendChild(pComment);
 
   const imgFlex = document.querySelector(".FlexWrap");
+  div.appendChild(link);
   imgFlex.appendChild(div);
 }
 
