@@ -13,40 +13,43 @@ let library; //Global variable, loaded async from the current server in window.l
 // Use the DOMContentLoaded, or window load event, to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
-  library = await fetch('http://localhost:8080/library').
-                  then((response) => response.json()).catch(function() {
+  library = await fetch('http://localhost:8080/library')
+                  .then((response) => response.json()).catch(function() {
                     alert("Error loading library - check if node server is running.");
                   });
 
   // Fetch requests from server with Promise callbacks
   allRatings = await fetch('http://localhost:8080/ratings')
-                    .then((response) => response.json()).catch(function() {
-                      alert("Error loading ratings - check if node server is running.");
-                    })
+                     .then((response) => response.json()).catch(function() {
+                       alert("Error loading ratings - check if node server is running.");
+                      });
 
   
   
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-
+  // Renders the album images currently contained in the JSON library file
   for (const album of library.albums) {
       renderImage(album.headerImage, album.id, album.title);
   }
   
-  // Render modal window, will be displayed upon clicking New Album button
+  // Render modal window - it will be displayed upon clicking New Album button
   renderModal();
   
+  // Query selectors matches with the CSS element that defines it
   const addAlbumMenu = document.querySelector('#newAlbum');
   const modal = document.querySelector('.modal');
+  // Event listener for clicking region outside modal window to exit the modal view
   addAlbumMenu.addEventListener('click', () => {
     modal.style.display = 'block';
   })
-  
+
   const submit = document.querySelector('.submit');
   submit.addEventListener('click', () => {
     const titleInput = document.querySelector('#title-input');
     const fileInput = document.querySelector('.fileInput');
     
+    // FormData is used to send the header image
     const formData = new FormData();
     formData.append('image', fileInput.files[0]);
     
@@ -57,7 +60,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       modal.style.display = 'none';
     }
     else{
-      alert("Must add image and title to album.")
+      alert("Must add image and title to album.");
     }
   })
 
@@ -90,6 +93,7 @@ function renderImage(src, tag, title) {
   imgFlex.appendChild(albumTag);
 };
 
+// Renders modal window for adding a new album
 function renderModal(){
   const modal = document.querySelector('.modal');
 
@@ -134,6 +138,7 @@ function addHeaderImg(file){
     // mode: "cors",
   });
 }
+
 // Function that adds a new album to the JSON library file
 function addAlbum(title, fileName) {
   //fetch POST request to node server
