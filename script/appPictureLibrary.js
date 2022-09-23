@@ -202,14 +202,17 @@ function renderModal(){
   submit.innerHTML = 'Add Album';
   submit.className = 'submit';
 
-  modalContent.appendChild(titleFormTitle);
-  modalContent.appendChild(titleForm);
-  modalContent.appendChild(commentFormTitle);
-  modalContent.appendChild(commentForm);
-  modalContent.appendChild(hiRes);
-  modalContent.appendChild(orig);
-  modalContent.appendChild(loRes);
-  modalContent.appendChild(submit);
+  [titleFormTitle, titleForm, commentFormTitle, commentForm, hiRes, orig, loRes, submit]
+  .forEach((item) => modalContent.appendChild(item));
+
+  // modalContent.appendChild(titleFormTitle);
+  // modalContent.appendChild(titleForm);
+  // modalContent.appendChild(commentFormTitle);
+  // modalContent.appendChild(commentForm);
+  // modalContent.appendChild(hiRes);
+  // modalContent.appendChild(orig);
+  // modalContent.appendChild(loRes);
+  // modalContent.appendChild(submit);
   modal.appendChild(modalContent);
 
 }

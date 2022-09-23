@@ -5,22 +5,35 @@
 import * as lib from '../model/picture-library-browser.js';
 
 const ratingJSON = "../app-data/library/picture-rating.json";
-let allRatings;
-
 const libraryJSON = "picture-library.json";
-let library; //Global varibale, Loaded async from the current server in window.load event
-let albumNumber;
-//use the DOMContentLoaded, or window load event to read the library async and render the images
+
+let allRatings;
+let library; //Global variable, loaded async from the current server in window.load event
+
+// Use the DOMContentLoaded, or window load event, to read the library async and render the images
 window.addEventListener('DOMContentLoaded', async () => {
 
-  allRatings = await fetch('http://localhost:8080/ratings').then((response) => response.json());
-  library = await fetch('http://localhost:8080/library').then((response) => response.json());
+  library = await fetch('http://localhost:8080/library').
+                  then((response) => response.json()).catch(function() {
+                    alert("Error loading library - check if node server is running.");
+                  });
+
+  // Fetch requests from server with Promise callbacks
+  allRatings = await fetch('http://localhost:8080/ratings')
+                    .then((response) => response.json()).catch(function() {
+                      alert("Error loading ratings - check if node server is running.");
+                    })
+
+  
+  
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+
 
   for (const album of library.albums) {
       renderImage(album.headerImage, album.id, album.title);
   }
   
+  // Render modal window, will be displayed upon clicking New Album button
   renderModal();
   
   const addAlbumMenu = document.querySelector('#newAlbum');
@@ -38,52 +51,43 @@ window.addEventListener('DOMContentLoaded', async () => {
     formData.append('image', fileInput.files[0]);
     
 
-    if(titleInput.value != ''){
+    if(titleInput.value != '') {
       addHeaderImg(formData);
       addAlbum(titleInput.value, fileInput.files[0].name);
       modal.style.display = 'none';
     }
     else{
-
+      alert("Must add image and title to album.")
     }
-
   })
 
   window.addEventListener('click', (e) => {
     if (e.target == modal) {
         modal.style.display = 'none';
     }
-  })
-
+  });
 })
-
-
-window.addEventListener('click',  () => {
-
-  //just to confirm that the library is accessible as a global variable read async
-  console.log (`library has ${library.albums.length} albums`);
-});
 
 //Render the images
 function renderImage(src, tag, title) {
 
-  const aTag = document.createElement('a')
-  aTag.href = './album.html?id=' + tag;
+  const albumTag = document.createElement('a')
+  albumTag.href = './album.html?id=' + tag;
   
   const div = document.createElement('div');
-  aTag.appendChild(div);
+  albumTag.appendChild(div);
 
-  const pTitle = document.createElement('p');
-  pTitle.innerHTML = `${title}`;
-  pTitle.className = 'pText Titel'
-  div.appendChild(pTitle);
+  const pictureTitle = document.createElement('p');
+  pictureTitle.innerHTML = `${title}`;
+  pictureTitle.className = 'pText Titel'
+  div.appendChild(pictureTitle);
   
   const img = document.createElement('img');
   img.src = src;
   div.appendChild(img);
 
   const imgFlex = document.querySelector('.FlexWrap');
-  imgFlex.appendChild(aTag);
+  imgFlex.appendChild(albumTag);
 };
 
 function renderModal(){
@@ -108,23 +112,29 @@ function renderModal(){
   
   const submit = document.createElement('button');
   submit.innerHTML = 'Add Album';
-  submit.className = 'submit'
+  submit.className = 'submit';
 
-  modalContent.appendChild(titleFormTitle);
-  modalContent.appendChild(titleForm);
-  modalContent.appendChild(file);
-  modalContent.appendChild(submit);
+ // Append each element in modal window
+[titleFormTitle, titleForm, file, submit]
+.forEach((item) => modalContent.appendChild(item));
+  // modalContent.appendChild(titleFormTitle);
+  // modalContent.appendChild(titleForm);
+  // modalContent.appendChild(file);
+  // modalContent.appendChild(submit);
+
   modal.appendChild(modalContent);
 
 }
 
+// Function for sending post request to the server, retrieving a header image for album
 function addHeaderImg(file){
   fetch("http://localhost:8080/addHeaderImg", {
     method: "POST",
     body: file,
+    // mode: "cors",
   });
 }
-
+// Function that adds a new album to the JSON library file
 function addAlbum(title, fileName) {
   //fetch POST request to node server
   fetch("http://localhost:8080/addAlbum", {
