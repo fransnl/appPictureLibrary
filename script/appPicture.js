@@ -101,7 +101,7 @@ function renderImage(srchigh, srclow, tag, title, comment) {
       r += rating;
     }
     r = r / nrofratings;
-    pRating.innerHTML = `Rating: ${r}`;
+    pRating.innerHTML = `Rating: ${r.toFixed(1)}`;
   }
 
   rElement.append(pRating);
