@@ -10,7 +10,6 @@ body {
   grid-template-rows: 2vh;
 }
 
-
 .FlexWrap {
   display: grid;
   flex-wrap: wrap;
