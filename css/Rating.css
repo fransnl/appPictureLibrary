@@ -72,10 +72,8 @@
 
 .totRating {
   padding: 5px;
-  /* color: white; */
   font-size: 2.5vw;
   font-weight: bolder;
-  text-shadow: #645f1a;
   border-radius: 5px;
   border: 2px solid gray;
 }
