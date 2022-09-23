@@ -22,11 +22,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     for (const album of library.albums) {
       if (album.id == albumId) {
         for (const picture of album.pictures) {
-            
+          // String is cut off after 50 characters to make a preview comment in header
           const comment = picture.comment.substring(0, 50) + '...';
           if(album.path != undefined){
             renderImage(`${album.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
-          } else{
+          } else {
             renderImage(`${picture.path}/${picture.imgLoRes}`, picture.id, picture.title, comment);
           }
             
@@ -57,7 +57,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     slideShow.addEventListener("click", () => {
       const allChecked = [];
       allPictures.forEach((item) => {
-        if (item.querySelector(".check").checked === true) {
+        if (item.querySelector(".check").checked === true) { 
           const purl = item.querySelector(".link").href;
           const purlString = new URL(purl);
           const pid = purlString.searchParams.get("id");
@@ -85,17 +85,21 @@ window.addEventListener("DOMContentLoaded", async () => {
       modal.style.display = 'block';
     })
 
+    // When submitting pictures to the library, event listener will wait for button to be clicked
     const submit = document.querySelector('.submit');
     submit.addEventListener('click', () => {
       
+      // Set variables using queryselectors
       const titleInput = document.querySelector('#title-input');
       const commentInput = document.querySelector('#comment-input');
       const fileInput = document.querySelectorAll('.fileInput');
 
+      // Manipulate the 3 different pictures information and set the name based on resolution
       const hiRes = new File([fileInput[0].files[0]], fileInput[0].files[0].name.split('.')[0] + "~big." + fileInput[0].files[0].name.split('.')[1]);
       const orig = new File([fileInput[1].files[0]], fileInput[1].files[0].name.split('.')[0] + "~orig." + fileInput[1].files[0].name.split('.')[1]);
       const loRes = new File([fileInput[2].files[0]], fileInput[2].files[0].name.split('.')[0] + "~small." + fileInput[2].files[0].name.split('.')[1]);
 
+      // Images and information about them are sent using the form data
       const formData = new FormData();
       formData.append('hiRes', hiRes);
       formData.append('orig', orig);
@@ -104,6 +108,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       formData.append('title', titleInput.value);
       formData.append('comment', commentInput.value);
 
+      // Check if the picture is given a title, and then send it to the server
       if(titleInput.value != ''){
         addPicture(formData);
         modal.style.display = 'none';
@@ -142,7 +147,7 @@ function renderImage(src, tag, title, comment) {
 
   const pTitle = document.createElement('p');
   pTitle.innerHTML = `${title}`;
-  pTitle.className = 'pText Title'
+  pTitle.className = 'pText Title';
   link.appendChild(pTitle);
 
   const img = document.createElement("img");
@@ -151,7 +156,7 @@ function renderImage(src, tag, title, comment) {
 
   const pComment = document.createElement('p');
   pComment.innerHTML = `${comment}`;
-  pComment.className = 'pText Comment'
+  pComment.className = 'pText Comment';
   link.appendChild(pComment);
 
   const imgFlex = document.querySelector(".FlexWrap");
@@ -163,7 +168,7 @@ function renderModal(){
   const modal = document.querySelector('.modal');
 
   const modalContent = document.createElement('div');
-  modalContent.className = 'modal-content'
+  modalContent.className = 'modal-content';
 
   const titleFormTitle = document.createElement('p');
   titleFormTitle.innerHTML = 'Title';
@@ -217,6 +222,7 @@ function renderModal(){
 
 }
 
+// If no album tag is given, display a-tag that returns to index
 function renderError() {
   const error = document.createElement("a");
   error.innerHTML = "<- no album found, go back to home page";
@@ -224,7 +230,7 @@ function renderError() {
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(error);
 }
-
+// Function for posting picture to server
 function addPicture(file){
   fetch("http://localhost:8080/addPicture", {
     method: "POST",
