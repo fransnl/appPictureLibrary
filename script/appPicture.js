@@ -207,7 +207,7 @@ function submitChange(title, comment) {
   });
 }
 
-function submitRemove(id) {
+function submitRemove() {
   //fetch POST request to node server
   fetch("http://localhost:8080/removePicture", {
     method: "POST",
