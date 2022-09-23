@@ -20,7 +20,7 @@
   height: 3vw;
   text-align: center;
   color: rgb(0, 0, 0);
-  font-size: 30px;
+  font-size: 2.5vw;
   border-radius: 5px;
   background: linear-gradient(315deg, #f4f4f4, #cdcdcd);
   box-shadow: -6px -6px 24px #5b5b5b,
@@ -53,8 +53,8 @@
   align-self: center;
   border: none;
   width: 20vw;
-  height: 5vh;
-  font-size: 2vw;
+  height: 5vw;
+  font-size: 2.5vw;
   border-radius: 5px;
   color: rgb(0, 0, 0);
   
