@@ -1,74 +1,80 @@
 body {
-    margin: 0;
-    padding: 0;
-    }
+  margin: 0;
+  padding: 0;
+}
 
-    a {
-      text-decoration: none;
-      color: #ababab;
-    }
-    
-    a:hover {
-      color: black;
-      transition: 0.5s;
-    }
-    
-    .MenuContainer {
-     margin: 0 auto;
-     width: 100%;
-     text-align: center;
-    }
-    
-    .Menu {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-content: center;
-      list-style: none;
-      font-size: 16px;
-      line-height: 50px;
-      vertical-align: top;
-      text-decoration: none;
-      font-family: Muli;
-      padding-inline-start: 0px;
-    }
-    
-    .Menu li {
-      position: relative;
-    }
-    
-    .Menu li {
-      display: inline-block;
-      padding-right: 10px;
-      padding-left: 10px;
-      z-index: 1;
-    }
-    /*The lines between the menu items*/
-    .Menu li:before {
-      content: "";
-      height: 20px;
-      width: 1px;
-      background-color: rgb(0 0 0 / 20%);
-      display: block;
-      position: absolute;
-      right: 0;
-      top: 16px;
-    }
-    
-    .Menu li:last-child:before {
-      content: unset;
-    }
+.Nav {
+  display: grid;
+  justify-items: center;
+}
 
-    @media only screen and (max-width: 1024px){
-      a {
-        text-decoration: none;
-        color: #000000;
-      }
+a {
+  text-decoration: none;
+  color: #ababab;
+}
 
-      a:active {
-        color: rgb(122, 122, 122);
-        transition: 0.5s;
-      }
+a:hover {
+  color: black;
+  transition: 0.5s;
+}
+
+.MenuContainer {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+
+.Menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  list-style: none;
+  font-size: 16px;
+  line-height: 50px;
+  vertical-align: top;
+  text-decoration: none;
+  font-family: Muli;
+  padding-inline-start: 0px;
+}
+
+.Menu li {
+  position: relative;
+}
+
+.Menu li {
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 10px;
+  z-index: 1;
+}
+
+/*The lines between the menu items*/
+.Menu li:before {
+  content: "";
+  height: 20px;
+  width: 1px;
+  background-color: rgb(0 0 0 / 20%);
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 16px;
+}
+
+.Menu li:last-child:before {
+  content: unset;
+}
+
+@media only screen and (max-width: 1024px) {
+  a {
+    text-decoration: none;
+    color: #000000;
+  }
+
+  a:active {
+    color: rgb(122, 122, 122);
+    transition: 0.5s;
+  }
 
 
-    }
+}
