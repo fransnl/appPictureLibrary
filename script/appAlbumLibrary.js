@@ -109,6 +109,10 @@ function renderModal(){
   titleForm.id = 'title-input';
   titleForm.type = 'text';
 
+  const inputFormTitle = document.createElement('p');
+  inputFormTitle.innerHTML = 'Header Image';
+  inputFormTitle.className = 'titles';
+
   const file = document.createElement('input');
   file.className = 'fileInput';
   file.type = 'file';
@@ -119,7 +123,7 @@ function renderModal(){
   submit.className = 'submit';
 
  // Append each element in modal window
-[titleFormTitle, titleForm, file, submit]
+[titleFormTitle, titleForm, inputFormTitle, file, submit]
 .forEach((item) => modalContent.appendChild(item));
   // modalContent.appendChild(titleFormTitle);
   // modalContent.appendChild(titleForm);

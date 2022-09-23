@@ -11,18 +11,19 @@
     margin-top: 300px;
     margin-left: 30%;
     display: grid;
-    justify-items: center;
+    row-gap: 1px;
+    justify-items: stretch;
     background-color: white;
     width: 40%;
     height: 40%;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    
 }
 
 .titles{
     text-align: center;
+
 }
  .fileInput{
     border-radius: 2px;

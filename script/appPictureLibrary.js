@@ -188,15 +188,27 @@ function renderModal(){
   commentForm.id = 'comment-input';
   commentForm.type = 'text';
 
+  const hiResFormTitle = document.createElement('p');
+  hiResFormTitle.innerHTML = 'High Resolution Image';
+  hiResFormTitle.className = 'titles';
+
   const hiRes = document.createElement('input');
   hiRes.className = 'fileInput';
   hiRes.type = 'file';
   hiRes.name = 'hiRes';
 
+  const origFormTitle = document.createElement('p');
+  origFormTitle.innerHTML = 'Medium Resoulution';
+  origFormTitle.className = 'titles';
+
   const orig = document.createElement('input');
   orig.className = 'fileInput';
   orig.type = 'file';
   orig.name = 'orig';
+
+  const loResFormTitle = document.createElement('p');
+  loResFormTitle.innerHTML = 'Low Res Image';
+  loResFormTitle.className = 'titles';
 
   const loRes = document.createElement('input');
   loRes.className = 'fileInput';
@@ -207,7 +219,7 @@ function renderModal(){
   submit.innerHTML = 'Add Album';
   submit.className = 'submit';
 
-  [titleFormTitle, titleForm, commentFormTitle, commentForm, hiRes, orig, loRes, submit]
+  [titleFormTitle, titleForm, commentFormTitle, commentForm, hiResFormTitle, hiRes, origFormTitle, orig, loResFormTitle, loRes, submit]
   .forEach((item) => modalContent.appendChild(item));
 
   // modalContent.appendChild(titleFormTitle);
