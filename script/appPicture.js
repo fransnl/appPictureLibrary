@@ -29,6 +29,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         const comment = picture.comment;
         renderImage(
           `${album.path}/${picture.imgHiRes}`,
+          `${album.path}/${picture.imgOrig}`,
           `${album.path}/${picture.imgLoRes}`,
           picture.id,
           picture.title,
@@ -59,7 +60,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 //Render the images
-function renderImage(srchigh, srclow, tag, title, comment) {
+function renderImage(srchigh, srcorig, srclow, tag, title, comment) {
   const div = document.createElement("div");
   div.className = `FlexItem`;
   div.dataset.albumId = tag;
