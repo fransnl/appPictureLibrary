@@ -101,7 +101,7 @@ function renderImage(srchigh, srclow, tag, title, comment) {
       r += rating;
     }
     r = r / nrofratings;
-    pRating.innerHTML = `Rating: ${r}`;
+    pRating.innerHTML = `Rating: ${r.toFixed(1)}`;
   }
 
   rElement.append(pRating);
@@ -174,31 +174,10 @@ function renderImage(srchigh, srclow, tag, title, comment) {
     submitRemove(pictureId);
   });
 
-  const addPicture = document.createElement("button");
-  addPicture.textContent = `Add Picture to my Album`;
-  div.appendChild(addPicture);
-
-  addPicture.addEventListener("click", function () {
-    submitPicture(title, comment, pictureId);
-  });
-
   const imgFlex = document.querySelector(".FlexWrap");
   imgFlex.appendChild(div);
 
 
-}
-
-function submitPicture(title, comment, src) {
-  //fetch POST request to node server
-  fetch("http://localhost:8080/addPicture", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    body: JSON.stringify({ title, comment, src, id: pictureId }),
-  });
 }
 
 function submitRating(rating) {

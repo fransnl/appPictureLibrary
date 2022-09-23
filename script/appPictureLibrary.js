@@ -208,9 +208,8 @@ function renderModal(){
   submit.innerHTML = 'Add Album';
   submit.className = 'submit';
 
-
   [titleFormTitle, titleForm, commentFormTitle, commentForm, hiRes, orig, loRes, submit]
-  .forEach((item) => listItem.appendChild(item));
+  .forEach((item) => modalContent.appendChild(item));
 
   // modalContent.appendChild(titleFormTitle);
   // modalContent.appendChild(titleForm);
@@ -239,18 +238,3 @@ function addPicture(file){
     body: file,
   });
 }
-
-// UNUSED?
-
-// function submitRemove(id) {
-//   //fetch POST request to node server
-//   fetch("http://localhost:8080/removeAlbum", {
-//     method: "POST",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//     mode: "cors",
-//     body: JSON.stringify({ id: pictureId }),
-//   });
-// }

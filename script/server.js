@@ -24,15 +24,24 @@ app.get('/ratings', async (req, res) =>{
     res.send(response);
 });
 
-//listening to post requests on 8080/addrating
+/*
+* Post request for adding rating to a picture.
+* If rating album doesnt exist it gets created.
+* If rating album exists picture is moved to that album
+* and if picture exists in other rating album it gets removed
+* from that album.
+*/
 app.post("/addrating", async (req, res) => {
-  const ratings = await pls
+  
+    // get rating json, add rating and write to rating file
+    const ratings = await pls
     .readFile("../app-data/library/picture-rating.json")
     .then(JSON.parse);
 
     ratings.ratings.push(req.body);
 
     await pls.writeFile('../app-data/library/picture-rating.json', JSON.stringify(ratings));
+
 
     let totRating = [];
     let ratingExist = false;
@@ -142,17 +151,17 @@ app.post("/changeTitleComment", async (req, res) => {
       .then(JSON.parse);
   
     for (const album of library.albums) {
-      for (const picture of album.pictures) {
-        if (req.body.id == picture.id) {
-          picture.title = req.body.title;
-          picture.comment = req.body.comment;
-          await pls.writeFile(
-            "../app-data/library/picture-library.json",
-            JSON.stringify(library)
-          );
+        for (const picture of album.pictures) {
+            if (req.body.id == picture.id) {
+                picture.title = req.body.title;
+                picture.comment = req.body.comment;
+            }
         }
-      }
     }
+    await pls.writeFile(
+    "../app-data/library/picture-library.json",
+    JSON.stringify(library)
+    );
 });
   
   // Function to remove a picture when in an album view
@@ -161,19 +170,19 @@ const library = await pls
     .readFile("../app-data/library/picture-library.json")
     .then(JSON.parse);
 
-for (const album of library.albums) {
-    for (const picture of album.pictures) {
-        if (req.body.id == picture.id) {
-            const idx = album.pictures.indexOf(picture);
-            album.pictures.splice(idx, 1);
-            await pls.writeFile(
-            "../app-data/library/picture-library.json",
-            JSON.stringify(library)
-            );
+    for (const album of library.albums) {
+        for (const picture of album.pictures) {
+            if (req.body.id == picture.id) {
+                const idx = album.pictures.indexOf(picture);
+                album.pictures.splice(idx, 1);
+            }
         }
-
     }
-}
+
+    await pls.writeFile(
+    "../app-data/library/picture-library.json",
+    JSON.stringify(library)
+    );
 });
   
 // Function to add a new album
