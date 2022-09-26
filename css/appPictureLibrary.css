@@ -62,6 +62,11 @@ img {
     scale: 110%;
   }
 
+  .FlexItem{
+  grid-template-rows: 3vh;
+
+  }
+
   .link {
     width: 70vw;
   }

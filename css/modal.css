@@ -10,12 +10,11 @@
 .modal-content{
     margin-top: 300px;
     margin-left: 30%;
-    display: grid;
-    row-gap: 1px;
-    justify-items: stretch;
+    display: flex;
+    flex-direction: column;
     background-color: white;
     width: 40%;
-    height: 40%;
+    height: 50%;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
@@ -31,3 +30,18 @@
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(32, 32, 32);
  }
+
+ .submit{
+    margin-top: 2vh;
+ }
+
+@media only screen and (max-width: 700px) {
+
+    .modal-content{
+        width: 80%;
+        height: 70%;
+        margin-left: 10%;
+        margin-top: 20vh;
+    }
+
+}
