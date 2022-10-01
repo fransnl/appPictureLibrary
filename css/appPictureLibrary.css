@@ -10,7 +10,6 @@ body {
   grid-template-rows: 2vh;
 }
 
-
 .FlexWrap {
   display: grid;
   flex-wrap: wrap;
@@ -61,6 +60,11 @@ img {
 
   .img:hover {
     scale: 110%;
+  }
+
+  .FlexItem{
+  grid-template-rows: 3vh;
+
   }
 
   .link {

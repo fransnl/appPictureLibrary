@@ -1,8 +1,8 @@
 'use strict'
-//fs/promises for async read/write
+//fs/promises for promise based async read/write
 import * as pls from "fs/promises";
 import express from "express";
-//cors needed for accepting requests from other "webservers"
+//cors needed for accepting cross origin resource
 import cors from "cors";
 import fileUpload from "express-fileupload";
 
@@ -43,6 +43,7 @@ app.post("/addrating", async (req, res) => {
     await pls.writeFile('../app-data/library/picture-rating.json', JSON.stringify(ratings));
 
 
+    //gets all ratings for the picture, checks if rating exists
     let totRating = [];
     let ratingExist = false;
 
@@ -53,6 +54,7 @@ app.post("/addrating", async (req, res) => {
         }
     }
 
+    //if rating exists, adds to correct rating album and removes from 
     if ((totRating != undefined || totRating.length != 0) & ratingExist) {
         let nrofratings = 0;
         let r = 0;
@@ -60,6 +62,8 @@ app.post("/addrating", async (req, res) => {
         let albumObj = null;
         const library = await pls.readFile('../app-data/library/picture-library.json').then(JSON.parse);
 
+        //if album is not a rating album and picture id is the same
+        //picture, album is saved to variable and picture object gets correct path
         for(const album of library.albums){
             for(const picture of album.pictures){
                 if(req.body.id == picture.id 
@@ -74,6 +78,7 @@ app.post("/addrating", async (req, res) => {
             }
         }
 
+        //calculates average rating r
         for (const rating of totRating) {
         nrofratings += 1;
         r += rating;
@@ -84,6 +89,8 @@ app.post("/addrating", async (req, res) => {
             r = 4;
         }
 
+        //checks if rating album exists
+        //checks if picture exists in rating album 
         let ratingAlbumExists = false;
         let pictureExists = false;
 
@@ -98,11 +105,13 @@ app.post("/addrating", async (req, res) => {
             }
         }
 
+        //if rating album exists but not picture, add picture
         if(!pictureExists && ratingAlbumExists){
             const index = library.albums.findIndex(x => x.id == Math.floor(r));
             library.albums[index].pictures.push(pictureObj)
         }
         
+        //if rating album doesnt exist, add album then picture
         if(!ratingAlbumExists){
             library.albums.push(
             {
@@ -118,6 +127,9 @@ app.post("/addrating", async (req, res) => {
                 }
             }
         }
+
+        //if picture exists in other rating albums, remove it
+        //if rating album is empty, remove it
         const ratingAlbums = [4, 3, 2, 1]
         const index = ratingAlbums.indexOf(Math.floor(r));
         ratingAlbums.splice(index, 1);
@@ -144,12 +156,13 @@ app.post("/addrating", async (req, res) => {
     console.log('rating saved...');
 });
 
-// Post title/comment
+//change title/comment of picture
 app.post("/changeTitleComment", async (req, res) => {
     const library = await pls
       .readFile("../app-data/library/picture-library.json")
       .then(JSON.parse);
   
+    //if correct picture id, change title and comment in object
     for (const album of library.albums) {
         for (const picture of album.pictures) {
             if (req.body.id == picture.id) {
@@ -164,12 +177,13 @@ app.post("/changeTitleComment", async (req, res) => {
     );
 });
   
-  // Function to remove a picture when in an album view
+  //remove a picture when in an album view
 app.post("/removePicture", async (req, res) => {
 const library = await pls
     .readFile("../app-data/library/picture-library.json")
     .then(JSON.parse);
 
+    //if picture id is correct splice picture object from picture array
     for (const album of library.albums) {
         for (const picture of album.pictures) {
             if (req.body.id == picture.id) {
@@ -185,16 +199,19 @@ const library = await pls
     );
 });
   
-// Function to add a new album
+//add a new album to json
 app.post("/addAlbum", async (req, res) => {
     const library = await pls
         .readFile("../app-data/library/picture-library.json")
         .then(JSON.parse);
 
+    //sets path to pictures/{ album title }
     const path = "../app-data/library/pictures/" + req.body.title;
 
+    //creates folder for path
     pls.mkdir(path);
 
+    //adds album object to ablum array
     library.albums.push({
             id: uniqueId(),
             title: req.body.title,
@@ -210,8 +227,12 @@ app.post("/addAlbum", async (req, res) => {
 
 });
 
+//add
 app.post("/addHeaderImg", async (req, res) => {
     
+    //gets image from files
+    //if no image return status 400
+    //move image to correct folder
     const { image } = req.files;
 
     if (!image) return res.sendStatus(400);

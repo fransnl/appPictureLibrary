@@ -13,14 +13,16 @@
 }
 
 #rating {
+  display: flex;
   background-color: #68629D;
   margin: 12px;
   border-radius: 10%;
   width: 3vw;
   height: 3vw;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
   color: rgb(0, 0, 0);
-  font-size: 30px;
+  font-size: 2.5vw;
   border-radius: 5px;
   background: linear-gradient(315deg, #f4f4f4, #cdcdcd);
   box-shadow: -6px -6px 24px #5b5b5b,
@@ -53,8 +55,8 @@
   align-self: center;
   border: none;
   width: 20vw;
-  height: 5vh;
-  font-size: 2vw;
+  height: 5vw;
+  font-size: 2.5vw;
   border-radius: 5px;
   color: rgb(0, 0, 0);
   
@@ -72,10 +74,17 @@
 
 .totRating {
   padding: 5px;
-  /* color: white; */
   font-size: 2.5vw;
   font-weight: bolder;
-  text-shadow: #645f1a;
   border-radius: 5px;
   border: 2px solid gray;
+}
+
+@media only screen and (max-width: 700px) {
+
+  #rating{
+    width: 5vw;
+    height: 5vw;
+  }
+
 }
